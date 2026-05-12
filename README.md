@@ -1,7 +1,7 @@
-# **[ALIGNing Learned Representations: Domain-General Models Triangulate Physicochemical Interactions in Analytical Separations]**
+# **ALIGNing Learned Representations: Domain-General Models Triangulate Physicochemical Interactions in Analytical Separations**
 
 # General
-Graphormer-RT is an extension to the Graphormer package, with [documentation](https://graphormer.readthedocs.io/), and the original code on [Github](https://github.com/microsoft/Graphormer/) with additional usage examples. If you use this code, __please cite our work that led to the development of this platform and the original Graphormer__
+Graphormer-RT is an extension to the Graphormer package, with [documentation](https://graphormer.readthedocs.io/), and the original code on [Github](https://github.com/microsoft/Graphormer/) with additional usage examples. If you use this code, **please cite our work that led to the development of this platform and the original Graphormer**
 
 
 @article{Stienstra2025,
