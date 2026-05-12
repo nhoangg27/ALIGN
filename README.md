@@ -3,8 +3,8 @@
 # General
 Graphormer-RT is an extension to the Graphormer package, with [documentation](https://graphormer.readthedocs.io/), and the original code on [Github](https://github.com/microsoft/Graphormer/) with additional usage examples. If you use this code, **please cite our work that led to the development of this platform and the original Graphormer**
 
-
-```@article{Stienstra2025,
+```bibtex
+@article{Stienstra2025,
    author = {Cailum M.K. Stienstra and Emir Nazdrajić and W. Scott Hopkins},
    doi = {10.1021/ACS.ANALCHEM.4C05859},
    issn = {15206882},
@@ -46,6 +46,43 @@ author={Chengxuan Ying and Tianle Cai and Shengjie Luo and Shuxin Zheng and Guol
 booktitle={Thirty-Fifth Conference on Neural Information Processing Systems},
 year={2021},
 url={https://openreview.net/forum?id=OeWooOxFwDa}
-}```
+}
+```
+
+# Installation
+We highly recommend following the [installation guide](https://graphormer.readthedocs.io/), though we will suggest a few additional notes to make things easier:
+- Install fairseq directly from the [Github repository](https://github.com/facebookresearch/fairseq), "pip install -e /path/to/folder" Make sure that you're using an old enough version that's compatible with Graphormer
+- Make sure that you're using an old enough version of PyTorch Geometric and the DGL libraries (there's a lookup table for compatibility on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever class methods (e.g., "\_\_len\_\_"), in your install and it should work.
+- Refer to "requirement.txt" if you have any problems with version compatability.
+- Ensure that your CUDA and pytorch geometric versions are compatabile. 
+
+# Data
+All data used in this study is publically available at the RepoRT github (https://github.com/michaelwitting/RepoRT/). Those using this data should cite this work as follows:
+
+```bibtex
+@article{Kretschmer2024,
+   author = {Fleming Kretschmer and Eva Maria Harrieder and Martin A. Hoffmann and Sebastian Böcker and Michael Witting},
+   doi = {10.1038/s41592-023-02143-z},
+   issn = {1548-7105},
+   issue = {2},
+   journal = {Nature Methods 2024 21:2},
+   keywords = {Analytical biochemistry,Databases,Metabolomics},
+   month = {1},
+   pages = {153-155},
+   pmid = {38191934},
+   publisher = {Nature Publishing Group},
+   title = {RepoRT: a comprehensive repository for small molecule retention times},
+   volume = {21},
+   url = {https://www.nature.com/articles/s41592-023-02143-z},
+   year = {2024},
+}
+```
+
+All of our training libraries for this study can be directly obtained from their library, by utilizing the dataprocessing scripts outlined in the folder. These 
+scripts need their paths to be manually modified to received a "RepoRT-like" data structure. If you wish to adapt your gradient/LC method to our model, I highly recommend
+structuring your data like a RepoRT entry and apply our scripts to generate an entry in our method data dictionary.
+
+The pickle files (/home/cmkstien/RT_pub/Graphormer_RT/sample_data/HILIC_metadata.pickle, /home/cmkstien/RT_pub/Graphormer_RT/sample_data/RP_metadata.pickle) contain
+processed column metada generated from RepoRT with the following header:
 
 
