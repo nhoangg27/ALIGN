@@ -4,7 +4,7 @@
 Graphormer-RT is an extension to the Graphormer package, with [documentation](https://graphormer.readthedocs.io/), and the original code on [Github](https://github.com/microsoft/Graphormer/) with additional usage examples. If you use this code, **please cite our work that led to the development of this platform and the original Graphormer**
 
 
-@article{Stienstra2025,
+```@article{Stienstra2025,
    author = {Cailum M.K. Stienstra and Emir Nazdrajić and W. Scott Hopkins},
    doi = {10.1021/ACS.ANALCHEM.4C05859},
    issn = {15206882},
@@ -46,4 +46,6 @@ author={Chengxuan Ying and Tianle Cai and Shengjie Luo and Shuxin Zheng and Guol
 booktitle={Thirty-Fifth Conference on Neural Information Processing Systems},
 year={2021},
 url={https://openreview.net/forum?id=OeWooOxFwDa}
-}
+}```
+
+
