@@ -53,11 +53,47 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 ```
 
 # Installation
+
+## Via Docker 
+We have developed a Docker Image to make installation and management of environments easier for Graphormer-RT. Installation Instructions are as follows
+
+📦 How to Install and Run Graphormer-RT Using Docker Image
+
+1. Install the following software (if not already installed):
+- Docker: [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
+- NVIDIA GPU drivers: [https://www.nvidia.com/Download/index.aspx](https://www.nvidia.com/Download/index.aspx)
+- NVIDIA Container Toolkit: [https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+You can verify installation via the following commands:
+```docker --version```
+```nvidia-smi```
+```nvidia-container-cli --version```
+
+2. Save the Dockerfile (the name should be “Dockerfile”).
+3. Open a terminal in the same folder as Dockerfile.
+4. Build the Docker image by running:
+````docker build --no-cache -t graphormer-rt .```
+5. Run the Docker container with GPU support:
+```docker run -it --gpus all graphormer-rt bash```
+6. Inside the container, navigate to the example directory, make the example script executable, and run the example script:
+```
+cd /workspace/Graphormer-RT/examples/property_prediction
+chmod +x HILIC.sh  
+./HILIC.sh
+```
+7. If it runs for an epoch and saves .pt files, you know you’ve succeeded.
+
+A beginner's guide to Docker usage can be found [HERE](https://docker-curriculum.com/)/
+- To UPLOAD files (_e.g._, new data) to the docker container, use:
+```docker cp ./local_file.txt container_id:/app/local_file.txt```
+- To DOWNLOAD files (_e.g._, checkpoints, results) from this container, use:
+```docker cp <container_id>:<path_inside_container> <path_on_host>```
+
+## Old Instructions (Before April 2025)
 We highly recommend following the [installation guide](https://graphormer.readthedocs.io/), though we will suggest a few additional notes to make things easier:
-- Install fairseq directly from the [Github repository](https://github.com/facebookresearch/fairseq), "pip install -e /path/to/folder" Make sure that you're using an old enough version that's compatible with Graphormer
-- Make sure that you're using an old enough version of PyTorch Geometric and the DGL libraries (there's a lookup table for compatibility on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever class methods (e.g., "\_\_len\_\_"), in your install and it should work.
-- Refer to "requirement.txt" if you have any problems with version compatability.
-- Ensure that your CUDA and pytorch geometric versions are compatabile. 
+- Install fairseq directly from the [Github repository](https://github.com/facebookresearch/fairseq) using ```pip install -e /path/to/folder```. Make sure that you're using an old enough version that's compatible with Graphormer.
+- Make sure that you're using an old enough version of ```PyTorch Geometric``` and the ```DGL``` libraries (there's a lookup table for compatibility on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever class methods (e.g., ```\_\_len\_\_```), in your install and it should work.
+- Refer to ```requirement.txt``` if you have any problems with version compatability.
+- Ensure that your ```CUDA``` and ```PyTorch Geometric``` versions are compatabile. 
 
 # Data
 All data used in this study is publically available at the RepoRT github (https://github.com/michaelwitting/RepoRT/). **EDIT THIS FOR HUAN & LIT DATA** Those using this data should cite this work as follows:
@@ -98,7 +134,7 @@ The ```example/property_prediction/``` folder contains scripts and dataloaders t
 To fully pre-train a model, use the following script. Adjust ```--encoder-attention-heads``` to 64 for an RP specialist model and 128 for a fused model:
 > ```bash ../../examples/property_prediction/fused.sh```
 
-To finetune a model, use the following script. Ensure that you have the correct paths for ```--pretrained-model-name``` and ```finetune_from_model```:
+To finetune a model, use the following script. Ensure that you have the correct paths for ```--pretrained-model-name``` and ```--finetune_from_model```:
 > ```bash ../../examples/property_prediction/finetune_RP.sh```
 
 Models can then be evaluated using the corresponding scripts in ```graphormer/evaluate/```. The flag ```--save-dir``` will allow you to save predictions alongside method data and SMILES strings:
