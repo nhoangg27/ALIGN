@@ -17,7 +17,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--fp16 \
   	--encoder-layers 8 \
   	--encoder-embed-dim  512 \
-  	-encoder-ffn-embed-dim 512 \
+  	--encoder-ffn-embed-dim 512 \
   	--encoder-attention-heads 128 \
   	--mlp-layers 5 \
 	--max-epoch 250 \
