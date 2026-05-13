@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 from rdkit import Chem
+from rdkit.Chem import Draw
 import ogb
 import sys
 import pickle
