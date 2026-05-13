@@ -13,7 +13,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --attention-dropout 0.15 --act-dropout 0.10 --dropout 0.10 \
     --optimizer adam --adam-betas '(0.9, 0.999)' --adam-eps 1e-8 --clip-norm 5.0 --weight-decay 0.01 \
     --lr-scheduler polynomial_decay --power 1 --warmup-updates 95 --total-num-update 631 \
-    --lr 1e-4 \
+    --lr 3e-4 \
     --fp16 \
     --encoder-layers 8 \
     --encoder-embed-dim 512 \
@@ -22,7 +22,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --mlp-layers 5 \
     --max-epoch 100 \
     --no-epoch-checkpoints \
-    --freeze-level -4  \
+    --freeze-level 0  \
     --save-dir /workspaces/align/checkpoints \
     --pretrained-model-name /workspaces/align/model_weights/129/best_model_last_129.pt \
 	--finetune-from-model /workspaces/align/model_weights/129/best_model_last_129.pt \
