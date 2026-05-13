@@ -21,7 +21,7 @@ from fairseq import checkpoint_utils, utils, options, tasks
 from fairseq.logging import progress_bar
 from fairseq.dataclass.utils import convert_namespace_to_omegaconf
 
-sys.path.append( path.dirname(   path.dirname( path.abspath(__file__) ) ) )
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 from pretrain import load_pretrained_model
 
 import logging
@@ -176,12 +176,10 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 stack = np.column_stack((smilesL, methodL, y_true, y_pred, std))
                 base, ext = os.path.splitext(save)
                 save = f"{base}_{name}_predictions{ext}"
-                # print(save)
-                
-                # exit()
+
                 with open(save, 'w', newline='') as file:
                     writer = csv.writer(file)
-                    writer.writerow(["SMILES", "Method", 'True RT', "Predicted RT", 'STD'])
+                    writer.writerow(["SMILES", "Method", "True RT", "Predicted RT", "STD"])
                     for row in stack:
                         writer.writerow(row)
                 print("SAVED PREDICTIONS")
