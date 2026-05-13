@@ -13,7 +13,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--attention-dropout 0.15 --act-dropout 0.10 --dropout 0.10 \
 	--optimizer adam --adam-betas '(0.9, 0.999)' --adam-eps 1e-8 --clip-norm 5.0 --weight-decay 0.01 \
 	--lr-scheduler polynomial_decay --power 1 --warmup-updates 38 --total-num-update  255\
-	--lr 4e-4 \
+	--lr 1.5e-4 \
 	--fp16 \
     --encoder-layers 8 \
     --encoder-embed-dim  512 \
