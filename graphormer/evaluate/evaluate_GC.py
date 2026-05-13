@@ -188,7 +188,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
 
                 with open(save, 'w', newline='') as file:
                     writer = csv.writer(file)
-                    writer.writerow(["SMILES", "Method", 'True RI', "Predicted RI", 'STD'])
+                    writer.writerow(["SMILES", "Method", "True RI", "Predicted RI", "STD"])
                     for row in stack:
                         writer.writerow(row)
                 print("SAVED PREDICTIONS")
