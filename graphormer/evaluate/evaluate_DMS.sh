@@ -11,7 +11,6 @@ python evaluate_DMS.py \
     --encoder-embed-dim  512 \
     --encoder-ffn-embed-dim 512 \
     --encoder-attention-heads 128 \
-    --freeze-level -4 \
     --mlp-layers 5 \
     --batch-size 64 \
     --num-classes 1 \
