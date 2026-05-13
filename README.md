@@ -64,9 +64,15 @@ We have developed a Docker Image to make installation and management of environm
 - NVIDIA GPU drivers: [https://www.nvidia.com/Download/index.aspx](https://www.nvidia.com/Download/index.aspx)
 - NVIDIA Container Toolkit: [https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 You can verify installation via the following commands:
-```docker --version```
-```nvidia-smi```
-```nvidia-container-cli --version```
+```
+docker --version
+```
+```
+nvidia-smi
+```
+```
+nvidia-container-cli --version
+```
 
 2. Save the Dockerfile (the name should be “Dockerfile”).
 3. Open a terminal in the same folder as Dockerfile.
@@ -88,11 +94,11 @@ chmod +x HILIC.sh
 
 A beginner's guide to Docker usage can be found [HERE](https://docker-curriculum.com/).
 - To UPLOAD files (_e.g._, new data) to the docker container, use:
-```
+```bash
 docker cp ./local_file.txt container_id:/app/local_file.txt
 ```
 - To DOWNLOAD files (_e.g._, checkpoints, results) from this container, use:
-```
+```bash
 docker cp <container_id>:<path_inside_container> <path_on_host>
 ```
 
