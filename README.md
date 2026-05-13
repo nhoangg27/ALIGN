@@ -111,9 +111,9 @@ Sample RP and HILIC models that were pretrained for our study are freely availab
 
 # Common Errors
 
-"Segmentation Fault... Core Dumped" may indicate that you have installed the incorrect version of PyTorch Geometric (https://data.pyg.org/whl/). This can be further tested by checking the package import (e.g., from pytorch_geometric.data import data)
+"Segmentation Fault... Core Dumped" may indicate that you have installed the incorrect version of [PyTorch Geometric](https://data.pyg.org/whl/). This can be further tested by checking the package import (_e.g._, ```from pytorch_geometric.data import data```)
 
-If gradients explode in training, it is recommended that you lower learning rates or increase the fp16-scale-tolerance value in the bash script
+If gradients explode in training, it is recommended that you lower learning rates or increase the ```fp16-scale-tolerance``` value in the bash script
 
 # Contact
 
