@@ -400,8 +400,8 @@ class IRSpectraD(DGLDataset):
     def __len__(self):
         return len(self.graphs)
 
-
-@register_dataset("CCS")
+# Change dataset-name to match bash script
+@register_dataset("DMS")
 def create_customized_dataset():
 
     dataset = IRSpectraD()
