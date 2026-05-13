@@ -15,12 +15,12 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--lr-scheduler polynomial_decay --power 1 --warmup-updates 92039 --total-num-update 613594 \
 	--lr 1e-4 \
 	--fp16 \
-  --encoder-layers 8 \
-  --encoder-embed-dim  512 \
-  --encoder-ffn-embed-dim 512 \
-  --encoder-attention-heads 64 \
+  	--encoder-layers 8 \
+  	--encoder-embed-dim  512 \
+  	--encoder-ffn-embed-dim 512 \
+  	--encoder-attention-heads 64 \
 	--fp16-scale-tolerance 0.05 \
-  --mlp-layers 5 \
+  	--mlp-layers 5 \
 	--max-epoch 250 \
 	--no-epoch-checkpoints \
 	--freeze-level 0 \
