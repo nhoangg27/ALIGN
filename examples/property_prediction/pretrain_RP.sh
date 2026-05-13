@@ -4,7 +4,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--num-workers 20 \
 	--ddp-backend=legacy_ddp \
 	--seed 23 \
-	--user-data-dir RP_train \
+	--user-data-dir RP_pretrain \
 	--dataset-name rp_rt_library \
 	--task graph_prediction_with_flag \
 	--criterion rmse \
