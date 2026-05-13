@@ -1,69 +1,49 @@
-
 from re import L
 import numpy as np 
-import csv
-from dgl.data import QM9 
-from rdkit import Chem
-from dgllife.utils import BaseBondFeaturizer
-import dgllife.utils as d
-import torch
-import json
 import pandas as pd
-from functools import partial
-from rdkit.Chem import rdmolfiles, rdmolops
-from collections import defaultdict
-
-import itertools
+import matplotlib.pyplot as plt
+import csv
+from tqdm import tqdm
+import logging
+import os
 import os.path as osp
 
-import dgl
-from dgl.data import DGLDataset
-import torch
-import os
+from rdkit import Chem
+from rdkit.Chem import rdmolfiles, rdmolops
 
-from sklearn.model_selection import train_test_split
-from tqdm import tqdm
-import matplotlib.pyplot as plt
-import numpy as np
-import torch
+import dgl
+from dgl import save_graphs, load_graphs
+from dgl.data import DGLDataset, QM9
+from dgl.data.utils import makedirs, save_info, load_info
+from dgllife.utils import BaseBondFeaturizer
+import dgllife.utils as d
 import dgl.backend as F
+
 import pickle
 
-from dgl import save_graphs, load_graphs
-from dgl.data.utils import makedirs, save_info, load_info
+import torch
+import json
+from functools import partial
+from collections import defaultdict
 from joblib import delayed, Parallel
 
-try:
-    from rdkit import Chem, RDConfig
-    from rdkit.Chem import AllChem, ChemicalFeatures
-
-except ImportError:
-    pass
-
-import json
-import logging
-
-import numpy as np
-import pandas as pd
+import itertools
 import scipy.stats as st
 import rdkit
-from rdkit import Chem
-from rdkit.Chem import Descriptors
+from rdkit import Chem, RDConfig
+from rdkit.Chem import AllChem, ChemicalFeatures, Descriptors
 from rdkit.ML.Descriptors.MoleculeDescriptors import MolecularDescriptorCalculator
 import mordred
 from mordred import Calculator, descriptors
-
-
-import mordred
-import rdkit
+from sklearn.model_selection import train_test_split
 from importlib.metadata import version
-
 
 import warnings
 
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
 warnings.filterwarnings("ignore")
+
 
 def remove_mordred_duplicates(desc_list, RDKit_Descriptors):
 
