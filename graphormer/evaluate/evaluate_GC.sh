@@ -15,5 +15,5 @@ python evaluate_GC.py \
     --batch-size 64 \
     --num-classes 1 \
     --save-dir /workspaces/align/checkpoints/checkpoint_last.pt \
-    # --save-path /workspaces/align/results/GC_sample.csv \
     --split train \
+    # --save-path /workspaces/align/results/GC_sample.csv \
