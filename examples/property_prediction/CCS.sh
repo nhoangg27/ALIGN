@@ -26,7 +26,7 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --freeze-level -4  \
     --save-dir '/workspaces/align/checkpoints' \
     --pretrained-model-name /workspaces/align/model_weights/129/best_model_last_129.pt \
-	  --finetune-from-model /workspaces/align/model_weights/129/best_model_last_129.pt \
+	--finetune-from-model /workspaces/align/model_weights/129/best_model_last_129.pt \
 
 
 
