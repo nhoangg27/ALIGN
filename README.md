@@ -63,6 +63,7 @@ We have developed a Docker Image to make installation and management of environm
 - Docker: [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
 - NVIDIA GPU drivers: [https://www.nvidia.com/Download/index.aspx](https://www.nvidia.com/Download/index.aspx)
 - NVIDIA Container Toolkit: [https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+
 You can verify installation via the following commands:
 ```bash
 docker --version
