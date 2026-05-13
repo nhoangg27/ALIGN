@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 from rdkit import Chem
+from rdkit.Chem import Draw
 import ogb
 import sys
 import pickle
@@ -20,7 +21,7 @@ from fairseq import checkpoint_utils, utils, options, tasks
 from fairseq.logging import progress_bar
 from fairseq.dataclass.utils import convert_namespace_to_omegaconf
 
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+sys.path.append( path.dirname(   path.dirname( path.abspath(__file__) ) ) )
 from pretrain import load_pretrained_model
 
 import logging
