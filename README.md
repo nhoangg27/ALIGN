@@ -91,3 +91,34 @@ The pickle file (/home/nhi/A-RT/A-RT_fused/sample_data/all_col_metadata_20260512
 Sample data for generating 'RP specialist' and 'fused' models are found in the ```sample_data/``` folder and demonstrates the intended structure. RP specialist models have 64 attention heads, while fused models have 128.
 
 The ```example/property_prediction/``` folder contains scripts and dataloaders to a) pre-train a model and b) finetune a pre-existing model. If you want to change the data source, you will need to edit code in the dataloader. Details for recommended hyperparameters are found in the Supplementary Information XXXXXXX.
+
+To fully pre-train a model, assuming you've edited the dataloader, use:
+>> bash ../../examples/property_prediction/fused.sh
+
+To finetune a model, assuming you've ensured correct paths for model weights and edited the dataloader, use:
+>> bash ../../examples/property_prediction/finetune_RP.sh
+
+Models can then be evaluated using the corresponding scripts in ```graphormer/evaluate/```. The flag ```--save-dir``` will allow you to save predictions alongside method data and SMILES strings:
+>> bash ../../graphormer/evaluate_RP.sh
+
+Pre-graph encoders are found in ```graphormer/modules/graphormer_layers.py```. Graph layers and MLPs are found in ```graphormer/models/```.
+
+There are command line tools available for freezing layers of the graph encoder of MLP (see freeze-level). A negative freeze-level will freeze layers of the graph encoder starting from the front (-4 freezes the first 4 layers of the graph encoder). A positive freeze level will freeze layers in the MLP starting from the front (2 will freeze the first two layers of the MLP). There are additionally flags for freezing the atomic feature encoders and graph feature encoders.
+
+# Models
+
+Sample RP and HILIC models that were pretrained for our study are freely available online at XXXXXXX. These can be used for model evaluation or for finetuning using the requisite scripts. 
+
+# Common Errors
+
+"Segmentation Fault... Core Dumped" may indicate that you have installed the incorrect version of PyTorch Geometric (https://data.pyg.org/whl/). This can be further tested by checking the package import (e.g., from pytorch_geometric.data import data)
+
+If gradients explode in training, it is recommended that you lower learning rates or increase the fp16-scale-tolerance value in the bash script
+
+# Contact
+
+If you require further assistance with developing your own model or have any questions about its implementaton, the authors can be contacted at 
+
+- cmkstien@uwaterloo.ca
+- scott.hopkins@uwaterloo.ca 
+
