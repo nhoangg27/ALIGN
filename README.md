@@ -198,10 +198,10 @@ Use this if you already manually downloaded the code folder (`A-RT_fused`) into 
       ]
     }
   },
-  "workspaceFolder": "/workspaces/graphormer-rt",
+  "workspaceFolder": "/workspaces/align",
   "mounts": [
-  "source=/home/nhi/A-RT/A-RT_fused,target=/workspaces/graphormer-rt,type=bind,consistency=cached",
-  "source=/home/nhi/A-RT/A-RT_Weights,target=/workspaces/graphormer-rt/model_weights,type=bind,consistency=cached"
+  "source=/home/nhi/A-RT/A-RT_fused,target=/workspaces/align,type=bind,consistency=cached",
+  "source=/home/nhi/A-RT/A-RT_Weights,target=/workspaces/align/model_weights,type=bind,consistency=cached"
 ],
   "remoteUser": "root",
   "overrideCommand": true
