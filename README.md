@@ -1,7 +1,7 @@
 # **ALIGNing Learned Representations: Domain-General Models Triangulate Physicochemical Interactions in Analytical Separations**
 
 # General
-Graphormer-RT is an extension to the Graphormer package, with [documentation](https://graphormer.readthedocs.io/), and the original code on [Github](https://github.com/microsoft/Graphormer/) with additional usage examples. If you use this code, **please cite our work that led to the development of this platform and the original Graphormer**
+ALIGN is an extension toour previous work, Graphormer-RT, and the Graphormer package. The [documentation](https://graphormer.readthedocs.io/) and the original code on [Github](https://github.com/microsoft/Graphormer/) contain additional usage examples. If you use this code, **please cite our work that led to the development of this platform and the original Graphormer**.
 
 ```bibtex
 @article{Stienstra2025,
@@ -92,10 +92,10 @@ Sample data for generating 'RP specialist' and 'fused' models are found in the `
 
 The ```example/property_prediction/``` folder contains scripts and dataloaders to a) pre-train a model and b) finetune a pre-existing model. If you want to change the data source, you will need to edit code in the dataloader. Details for recommended hyperparameters are found in the Supplementary Information XXXXXXX.
 
-To fully pre-train a model, assuming you've edited the dataloader, use:
+To fully pre-train a model, use the following script. Adjust ```--encoder-attention-heads``` to 64 for an RP specialist model and 128 for a fused model:
 > ```bash ../../examples/property_prediction/fused.sh```
 
-To finetune a model, assuming you've ensured correct paths for model weights and edited the dataloader, use:
+To finetune a model, use the following script. Ensure that you have the correct paths for ```--pretrained-model-name``` and ```finetune_from_model```:
 > ```bash ../../examples/property_prediction/finetune_RP.sh```
 
 Models can then be evaluated using the corresponding scripts in ```graphormer/evaluate/```. The flag ```--save-dir``` will allow you to save predictions alongside method data and SMILES strings:
@@ -103,7 +103,7 @@ Models can then be evaluated using the corresponding scripts in ```graphormer/ev
 
 Pre-graph encoders are found in ```graphormer/modules/graphormer_layers.py```. Graph layers and MLPs are found in ```graphormer/models/```.
 
-There are command line tools available for freezing layers of the graph encoder of MLP (see freeze-level). A negative freeze-level will freeze layers of the graph encoder starting from the front (-4 freezes the first 4 layers of the graph encoder). A positive freeze level will freeze layers in the MLP starting from the front (2 will freeze the first two layers of the MLP). There are additionally flags for freezing the atomic feature encoders and graph feature encoders.
+There are command line tools available for freezing layers of the graph encoder of MLP (see ```--freeze-level```). A negative freeze-level will freeze layers of the graph encoder starting from the front (-4 freezes the first 4 layers of the graph encoder). A positive freeze level will freeze layers in the MLP starting from the front (2 will freeze the first two layers of the MLP). There are additional flags for freezing the atomic feature encoders and graph feature encoders.
 
 # Models
 
