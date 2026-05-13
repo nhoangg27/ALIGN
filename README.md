@@ -55,7 +55,7 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 # Installation
 
 ## Via Docker 
-We have developed a Docker Image to make installation and management of environments easier for Graphormer-RT. Installation Instructions are as follows
+We have developed a Docker Image to make installation and management of environments easier for Graphormer-RT. Installation instructions are as follows:
 
 📦 How to Install and Run Graphormer-RT Using Docker Image
 
@@ -103,12 +103,147 @@ docker cp ./local_file.txt container_id:/app/local_file.txt
 docker cp <container_id>:<path_inside_container> <path_on_host>
 ```
 
-## Old Instructions (Before April 2025)
-We highly recommend following the [installation guide](https://graphormer.readthedocs.io/), though we will suggest a few additional notes to make things easier:
-- Install fairseq directly from the [Github repository](https://github.com/facebookresearch/fairseq) using ```pip install -e /path/to/folder```. Make sure that you're using an old enough version that's compatible with Graphormer.
-- Make sure that you're using an old enough version of ```PyTorch Geometric``` and the ```DGL``` libraries (there's a lookup table for compatibility on their website). These are the things that we found broke the most frequently, and the errors you get don't always tell you that it's these packages. If there are problems inheriting abstract data classes, just modify the class methods to include whatever class methods (e.g., ```\_\_len\_\_```), in your install and it should work.
-- Refer to ```requirement.txt``` if you have any problems with version compatability.
-- Ensure that your ```CUDA``` and ```PyTorch Geometric``` versions are compatabile. 
+## Via VS Code Dev Containers
+Alternatively, to make it easier to edit and organize files, you can also install ALIGN using the **Dev Containers extension** in VS Code with GPU support.
+
+---
+
+### 🧰 Prerequisites
+
+- [Docker](https://docs.docker.com/get-started/get-docker/)
+- [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
+- [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- Access to a machine with **NVIDIA GPU** and drivers properly installed.
+
+---
+
+### 📁 Folder Structure
+
+Your main project folder (e.g. `A-RT/`) should look like this:
+
+<pre lang="markdown"> <code> A-RT/ 
+  ├── .devcontainer/ 
+  │ ├── devcontainer.json   ← Option 1 or Option 2 (see below) 
+  │ ├── Dockerfile 
+  │ └── setup.sh       
+  ├── A-RT_local/           ← Your project code (from GitHub or manual download) 
+  ├── A-RT_Weights/         </code> </pre>
+
+---
+
+### 🚀 Setup Steps
+
+#### 1. Clone or download this repo
+
+If the repo is **private**:
+- Download and extract manually, and place it inside `A-RT/` (here named `A-RT_fused`).
+
+If the repo is **public**:
+- Use Option 2 below to automatically clone it.
+
+---
+
+#### 2. Prepare the `.devcontainer` folder
+
+Inside your `A-RT/` directory, create a `.devcontainer` folder containing:
+- `devcontainer.json` (choose one of the two below)
+- `Dockerfile`
+- `setup.sh` (not required for cloning)
+
+You can use the provided samples in this repository.
+
+---
+
+#### 3. Prepare model weights
+
+Inside your `A-RT/` directory, create a `model_weights` folder containing all the model weights. In the 2 examples provided, these are named `A-RT_Weights` and `model_weights`.
+
+---
+
+#### 4. Open in VS Code
+
+1. Open VS Code.
+2. Install the **Dev Containers extension** if you haven't already.
+3. Open the `A-RT/` folder in a **new VS Code window**.
+4. Press `F1` and select:  
+   ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
+
+---
+
+### 🛠️ devcontainer.json Options
+
+#### ✅ Option 1: You already downloaded the repo (see A-RT_local)
+
+Use this if you already manually downloaded the code folder (`A-RT_fused`) into `A-RT/`.
+
+```bash
+{
+  "name": "graphormer-rt",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "runArgs": [
+    "--gpus", "all",
+    "--name", "graphormer-rt"
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/opt/conda/envs/graphormer-rt/bin/python",
+        "python.terminal.activateEnvironment": true
+      },
+      "extensions": [
+        "ms-python.python"
+      ]
+    }
+  },
+  "workspaceFolder": "/workspaces/graphormer-rt",
+  "mounts": [
+  "source=/home/nhi/A-RT/A-RT_fused,target=/workspaces/graphormer-rt,type=bind,consistency=cached",
+  "source=/home/nhi/A-RT/A-RT_Weights,target=/workspaces/graphormer-rt/model_weights,type=bind,consistency=cached"
+],
+  "remoteUser": "root",
+  "overrideCommand": true
+}
+```
+
+#### ✅ Option 2: Clone the GitHub repo (see A-RT_clone)
+
+Use this if you want the container to automatically clone a public GitHub repo into `/workspace/graphormer-rt`.
+
+```bash
+{
+    "name": "Graphormer-RT",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "runArgs": [
+      "--gpus", "all",
+      "--name", "graphormer-rt-clone"
+    ],
+    "customizations": {
+        "vscode": {
+          "settings": {
+            "python.defaultInterpreterPath": "/opt/conda/envs/graphormer-rt/bin/python",
+            "python.terminal.activateEnvironment": true
+          },
+          "extensions": [
+            "ms-python.python"
+          ]
+        }
+      },
+    "workspaceFolder": "/workspace/Graphormer-RT",
+    "mounts": [
+      "source=${localWorkspaceFolder}/model_weights,target=/workspace/Graphormer-RT/model_weights,type=bind,consistency=cached"
+    ],
+    "remoteUser": "root",
+    "overrideCommand": true
+  }
+  
+```
+**Note:** these containers are named differently (`graphormer-rt` vs. `graphormer-rt-clone`) because VSCode will complain if a container of the same name already exists. The corresponding `Dockerfile` is also slightly different for each option.
 
 # Data
 All data used in this study is publically available at the RepoRT github (https://github.com/michaelwitting/RepoRT/). **EDIT THIS FOR HUAN & LIT DATA** Those using this data should cite this work as follows:
