@@ -71,9 +71,13 @@ You can verify installation via the following commands:
 2. Save the Dockerfile (the name should be “Dockerfile”).
 3. Open a terminal in the same folder as Dockerfile.
 4. Build the Docker image by running:
-````docker build --no-cache -t graphormer-rt .```
+```
+docker build --no-cache -t graphormer-rt .
+```
 5. Run the Docker container with GPU support:
-```docker run -it --gpus all graphormer-rt bash```
+```
+docker run -it --gpus all graphormer-rt bash
+```
 6. Inside the container, navigate to the example directory, make the example script executable, and run the example script:
 ```
 cd /workspace/Graphormer-RT/examples/property_prediction
@@ -82,11 +86,15 @@ chmod +x HILIC.sh
 ```
 7. If it runs for an epoch and saves .pt files, you know you’ve succeeded.
 
-A beginner's guide to Docker usage can be found [HERE](https://docker-curriculum.com/)/
+A beginner's guide to Docker usage can be found [HERE](https://docker-curriculum.com/).
 - To UPLOAD files (_e.g._, new data) to the docker container, use:
-```docker cp ./local_file.txt container_id:/app/local_file.txt```
+```
+docker cp ./local_file.txt container_id:/app/local_file.txt
+```
 - To DOWNLOAD files (_e.g._, checkpoints, results) from this container, use:
-```docker cp <container_id>:<path_inside_container> <path_on_host>```
+```
+docker cp <container_id>:<path_inside_container> <path_on_host>
+```
 
 ## Old Instructions (Before April 2025)
 We highly recommend following the [installation guide](https://graphormer.readthedocs.io/), though we will suggest a few additional notes to make things easier:
