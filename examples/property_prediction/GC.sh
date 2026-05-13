@@ -24,8 +24,8 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --no-epoch-checkpoints \
     --freeze-level -4  \
     --save-dir '/workspaces/align/checkpoints' \
-    --pretrained-model-name /workspaces/align/model_weights/RP_specialist/checkpoint_last.pt \
-	--finetune-from-model /workspaces/align/model_weights/RP_specialist/checkpoint_last.pt \
+    --pretrained-model-name /workspaces/align/model_weights/129/best_model_last_129.pt \
+	--finetune-from-model /workspaces/align/model_weights/129/best_model_last_129.pt \
 
 
 
