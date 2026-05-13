@@ -93,13 +93,13 @@ Sample data for generating 'RP specialist' and 'fused' models are found in the `
 The ```example/property_prediction/``` folder contains scripts and dataloaders to a) pre-train a model and b) finetune a pre-existing model. If you want to change the data source, you will need to edit code in the dataloader. Details for recommended hyperparameters are found in the Supplementary Information XXXXXXX.
 
 To fully pre-train a model, assuming you've edited the dataloader, use:
->> bash ../../examples/property_prediction/fused.sh
+> ```bash ../../examples/property_prediction/fused.sh```
 
 To finetune a model, assuming you've ensured correct paths for model weights and edited the dataloader, use:
->> bash ../../examples/property_prediction/finetune_RP.sh
+> ```bash ../../examples/property_prediction/finetune_RP.sh```
 
 Models can then be evaluated using the corresponding scripts in ```graphormer/evaluate/```. The flag ```--save-dir``` will allow you to save predictions alongside method data and SMILES strings:
->> bash ../../graphormer/evaluate_RP.sh
+> ```bash ../../graphormer/evaluate_RP.sh```
 
 Pre-graph encoders are found in ```graphormer/modules/graphormer_layers.py```. Graph layers and MLPs are found in ```graphormer/models/```.
 
