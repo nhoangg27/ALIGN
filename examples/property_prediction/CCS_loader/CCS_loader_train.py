@@ -1,28 +1,24 @@
-
 from re import L
 import numpy as np 
+import matplotlib.pyplot as plt
 import csv
 from rdkit import Chem
 import torch
+from tqdm import tqdm
+import pickle
+import gc
+import random
 import time
+import dgl
+import os
 
 from .featurizing_helpers import *
 print("YOU'RE DEF IN THE CORRECT FILE")
 
 import itertools
 
-import dgl
-import torch
-import os
-
 from graphormer.data import register_dataset
 from sklearn.model_selection import train_test_split
-from tqdm import tqdm
-import matplotlib.pyplot as plt
-import torch
-import pickle
-import gc
-import random
 
 
 companies = ['', 'Waters', 'Thermo', 'Agilent', 'Restek', 'Merck', 'Phenomenex', 'HILICON','GL','Advanced', 'Other']
@@ -301,7 +297,11 @@ class IRSpectraD(DGLDataset):
         self.smiles = []
 
         print("I'm in the right file")
+
+        # Change data path accordingly
         x = import_data(r'/workspaces/align/sample_data/CCS_sample_train.csv')
+
+        # Change method dictionary path accordingly
         with open('/workspaces/align/sample_data/all_col_metadata_20260512.pickle', 'rb') as handle: 
             self.columndict = pickle.load(handle) 
 
@@ -315,14 +315,12 @@ class IRSpectraD(DGLDataset):
         count = 0
  
         for i in tqdm(x):
-            # if count < 60900:
-            #     count+=1
-            #     continue
             
             sm = str(i[0]).replace("Q", "#") ## Hashtags break some of our preprocessing scripts so we replace them with Qs to make life easier 
             mol = Chem.MolFromSmiles(sm)
             rt = torch.tensor([float(i[1])]) / 10000  #  rescaling CCS by another factor of 10
 
+            # Change method name accordingly
             index = 'CCS'
             col_meta = self.columndict[index]
             
@@ -337,7 +335,7 @@ class IRSpectraD(DGLDataset):
             num_atoms = mol.GetNumAtoms()
             add_self_loop = False
             g = mol_to_bigraph(mol, explicit_hydrogens=False, node_featurizer=GraphormerAtomFeaturizer(), edge_featurizer=CanonicalBondFeaturizer(), add_self_loop=False) ## uses DGL featurization function                
-            ###########################################################################
+
             count1 = 0
             count2 = 0
 
