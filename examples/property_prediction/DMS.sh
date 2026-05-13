@@ -16,7 +16,6 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --lr 2e-4 \
     --fp16 \
     --encoder-layers 8 \
-    --wandb-project 'DMS_preds' \
     --encoder-embed-dim 512 \
     --encoder-ffn-embed-dim 512 \
     --encoder-attention-heads 128 \
