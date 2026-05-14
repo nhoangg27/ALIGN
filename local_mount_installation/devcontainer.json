@@ -17,6 +17,11 @@
     "vscode": {
       "settings": {
         "python.defaultInterpreterPath": "/opt/conda/envs/align/bin/python",
+        "python.analysis.extraPaths": [
+          "/workspace/align",
+          "/workspace/align/fairseq"
+        ],
+        "python.analysis.indexing": true,
         "python.terminal.activateEnvironment": true
       },
       "extensions": [
