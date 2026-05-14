@@ -1,0 +1,37 @@
+{
+  "name": "align",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      "CACHEBUST": "1"
+    }
+  },
+  "runArgs": [
+    "--gpus=all",
+    "--name=align",
+    "--ipc=host",
+    "--runtime=nvidia"
+  ],
+  "hostRequirements": {
+    "gpu": true
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/opt/conda/envs/align/bin/python",
+        "python.terminal.activateEnvironment": true
+      },
+      "extensions": [
+        "ms-python.python",
+        "mechatroner.rainbow-csv"
+      ]
+    }
+  },
+  "workspaceFolder": "/workspaces/align",
+  "mounts": [
+    "source=${localWorkspaceFolder}/ALIGN_Weights,target=/workspaces/align/model_weights,type=bind,consistency=cached"
+  ],
+  "remoteUser": "root",
+  "overrideCommand": true
+}
