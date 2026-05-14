@@ -30,6 +30,6 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--max-epoch 250 \
 	--no-epoch-checkpoints \
 	--freeze-level 0 \
-    --save-dir "$PROJECT_ROOT/checkpoints" \
+    --save-dir "$PROJECT_ROOT/pretrain_RP_checkpoints" \
 
 

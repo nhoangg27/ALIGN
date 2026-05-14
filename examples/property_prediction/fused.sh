@@ -29,6 +29,6 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--max-epoch 100 \
 	--no-epoch-checkpoints \
 	--freeze-level -4 \
-    --save-dir "$PROJECT_ROOT/checkpoints" \
+    --save-dir "$PROJECT_ROOT/fused_checkpoints" \
     --pretrained-model-name "$PROJECT_ROOT/model_weights/129/best_model_last_129.pt" \
 	--finetune-from-model "$PROJECT_ROOT/model_weights/129/best_model_last_129.pt" \
