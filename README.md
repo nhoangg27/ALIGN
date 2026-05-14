@@ -56,27 +56,7 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 
 # Installation
 
-
-2. Save the Dockerfile (the name should be “Dockerfile”).
-3. Open a terminal in the same folder as Dockerfile.
-4. Build the Docker image by running:
-```bash
-docker build --no-cache -t graphormer-rt .
-```
-5. Run the Docker container with GPU support:
-```bash
-docker run -it --gpus all graphormer-rt bash
-```
-6. Inside the container, navigate to the example directory, make the example script executable, and run the example script:
-```bash
-cd /workspace/Graphormer-RT/examples/property_prediction
-chmod +x HILIC.sh  
-./HILIC.sh
-```
-7. If it runs for an epoch and saves .pt files, you know you’ve succeeded.
-
-## Via VS Code Dev Containers
-We have developed a Docker Image to make installation and management of environments easier for ALIGN. You can install using **Dev Containers** in Visual Studio Code with GPU support, following the instructions below:
+To take the headache out of environment management, we’ve provided a pre-configured Docker Image for ALIGN. We recommend using **VS Code Dev Containers**; it gives you a full graphical interface to interact with the containerized code and files just like a local project, all while maintaining full GPU support. A beginner's guide to Docker and Dev Containers usage can be found [HERE](https://docker-curriculum.com/) and [HERE](https://code.visualstudio.com/docs/devcontainers/containers), respectively. 
 
 ### 🧰 Prerequisites
 
@@ -96,16 +76,17 @@ nvidia-smi
 nvidia-container-cli --version
 ```
 
-A beginner's guide to Docker usage can be found [HERE](https://docker-curriculum.com/).
-- To **UPLOAD** files (_e.g._, new data) to the docker container, use:
+To find your active `<container_id>`, run `docker ps`.
+
+Since Dev Containers allow you to drag-and-drop or edit files directly through the VS Code sidebar, you won't need the command line for most tasks. However, if you ever need to quickly move data or results via the terminal, you can use these "just in case" commands:
+- To **UPLOAD** files (_e.g._, new data) to the docker container:
 ```bash
-docker cp ./local_file.txt container_id:/app/local_file.txt
+docker cp <path_to_local_file> <container_id>:<destination_directory_inside_container>
 ```
 - To **DOWNLOAD** files (_e.g._, checkpoints, results) from this container, use:
 ```bash
 docker cp <container_id>:<path_inside_container> <path_on_host>
 ```
-
 
 ### 📁 Folder Structure
 
@@ -145,6 +126,13 @@ Download our model weights from XXXX and place them in an `ALIGN_Weights/` folde
 3. Open the `ALIGN/` folder in a **new VS Code window**.
 4. Press `F1` and select:  
    ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
+5. Once the container finishes building, run `bash setup.sh` to finish setting up the environment.
+6. Navigate to the example directory, make the example script executable, and run the example script:
+   ```bash
+   cd examples/property_prediction
+   bash HILIC.sh
+   ```
+7. If it runs for an epoch and saves .pt files inside `checkpoints/`, you know you’ve succeeded.
 
 # Data
 All data used in this study is publically available at the RepoRT github (https://github.com/michaelwitting/RepoRT/). **EDIT THIS FOR HUAN & LIT DATA** Those using this data should cite this work as follows:
