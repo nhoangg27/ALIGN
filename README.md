@@ -56,26 +56,6 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 
 # Installation
 
-## Via Docker 
-We have developed a Docker Image to make installation and management of environments easier for ALIGN. Instructions are as follows:
-
-📦 How to Install and Run ALIGN Using Docker Image
-
-1. Install the following software (if not already installed):
-- Docker: [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
-- NVIDIA GPU drivers: [https://www.nvidia.com/Download/index.aspx](https://www.nvidia.com/Download/index.aspx)
-- NVIDIA Container Toolkit: [https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-
-You can verify installation via the following commands:
-```bash
-docker --version
-```
-```bash
-nvidia-smi
-```
-```bash
-nvidia-container-cli --version
-```
 
 2. Save the Dockerfile (the name should be “Dockerfile”).
 3. Open a terminal in the same folder as Dockerfile.
@@ -95,25 +75,37 @@ chmod +x HILIC.sh
 ```
 7. If it runs for an epoch and saves .pt files, you know you’ve succeeded.
 
-A beginner's guide to Docker usage can be found [HERE](https://docker-curriculum.com/).
-- To UPLOAD files (_e.g._, new data) to the docker container, use:
-```bash
-docker cp ./local_file.txt container_id:/app/local_file.txt
-```
-- To DOWNLOAD files (_e.g._, checkpoints, results) from this container, use:
-```bash
-docker cp <container_id>:<path_inside_container> <path_on_host>
-```
-
 ## Via VS Code Dev Containers
-Alternatively, to make it easier to edit and organize files, you can also install ALIGN using the **Dev Containers extension** in VS Code with GPU support.
+We have developed a Docker Image to make installation and management of environments easier for ALIGN. You can install using **Dev Containers** in Visual Studio Code with GPU support, following the instructions below:
 
 ### 🧰 Prerequisites
 
 - [Docker](https://docs.docker.com/get-started/get-docker/)
 - [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
 - [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-- Access to a machine with [**NVIDIA GPU**](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) and [drivers](https://www.nvidia.com/Download/index.aspx) properly installed.
+- Access to a machine with [**NVIDIA GPU**](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) and [drivers](https://www.nvidia.com/Download/index.aspx) properly installed
+
+You can verify Docker and NVIDIA installation via the following commands:
+```bash
+docker --version
+```
+```bash
+nvidia-smi
+```
+```bash
+nvidia-container-cli --version
+```
+
+A beginner's guide to Docker usage can be found [HERE](https://docker-curriculum.com/).
+- To **UPLOAD** files (_e.g._, new data) to the docker container, use:
+```bash
+docker cp ./local_file.txt container_id:/app/local_file.txt
+```
+- To **DOWNLOAD** files (_e.g._, checkpoints, results) from this container, use:
+```bash
+docker cp <container_id>:<path_inside_container> <path_on_host>
+```
+
 
 ### 📁 Folder Structure
 
