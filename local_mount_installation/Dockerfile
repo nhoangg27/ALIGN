@@ -80,7 +80,7 @@ RUN nvidia-smi || echo "Note: nvidia-smi may fail during build but should work w
 RUN python3 -c "import torch; print('CUDA Config Check: PyTorch version', torch.__version__); print('CUDA Available:', torch.cuda.is_available()); print('CUDA Device Count:', torch.cuda.device_count() if torch.cuda.is_available() else 'None')" || echo "PyTorch CUDA check will be performed at runtime"
 
 # Add message to bash startup
-RUN echo 'echo "Run setup.sh to initialize the development environment"' >> /root/.bashrc
+RUN echo 'echo "Run setup.sh to finish setting up the ALIGN development environment."' >> /root/.bashrc
 
 # Start bash shell
 CMD ["/bin/bash"]
