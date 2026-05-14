@@ -4,7 +4,7 @@
 # **ALIGNing Learned Representations: Domain-General Models Triangulate Physicochemical Interactions in Analytical Separations**
 
 # General
-ALIGN is an extension toour previous work, Graphormer-RT, and the Graphormer package. The [documentation](https://graphormer.readthedocs.io/) and the original code on [Github](https://github.com/microsoft/Graphormer/) contain additional usage examples. If you use this code, **please cite our work that led to the development of this platform and the original Graphormer**.
+ALIGN is an extension to our previous work, Graphormer-RT, and the Graphormer package. The [documentation](https://graphormer.readthedocs.io/) and the original code on [Github](https://github.com/microsoft/Graphormer/) contain additional usage examples. If you use this code, **please cite our work that led to the development of this platform and the original Graphormer**.
 
 ```bibtex
 @article{Stienstra2025,
@@ -113,50 +113,46 @@ Alternatively, to make it easier to edit and organize files, you can also instal
 - [Docker](https://docs.docker.com/get-started/get-docker/)
 - [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
 - [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-- Access to a machine with **NVIDIA GPU** and drivers properly installed.
+- Access to a machine with [**NVIDIA GPU**](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) and [drivers](https://www.nvidia.com/Download/index.aspx) properly installed.
 
 ---
 
 ### 📁 Folder Structure
 
-Your main project folder (e.g. `A-RT/`) should look like this:
+Your main project folder (e.g. `ALIGN/`) should look like this:
 
-<pre lang="markdown"> <code> A-RT/ 
-  ├── .devcontainer/ 
-  │ ├── devcontainer.json   ← Option 1 or Option 2 (see below) 
+<pre lang="markdown"> <code> ALIGN/ 
+  ├── .devcontainer/        ← Option 1 or Option 2 (see below)
+  │ ├── devcontainer.json    
   │ ├── Dockerfile 
   │ └── setup.sh       
-  ├── A-RT_local/           ← Your project code (from GitHub or manual download) 
-  ├── A-RT_Weights/         </code> </pre>
+  ├── ALIGN_repo/           ← Your project code (from GitHub or manual download) 
+  ├── ALIGN_Weights/         </code> </pre>
 
 ---
 
 ### 🚀 Setup Steps
 
-#### 1. Clone or download this repo
+#### 1. Clone or download this repository
 
-If the repo is **private**:
-- Download and extract manually, and place it inside `A-RT/` (here named `A-RT_fused`).
+You may choose to **download** and extract the repository manually. Place it inside `ALIGN/` (here named `ALIGN_repo/`) for local mounting when we build the docker container.
 
-If the repo is **public**:
-- Use Option 2 below to automatically clone it.
+Alternatively, you may also choose to clone it automatically via `git clone`.
 
 ---
 
 #### 2. Prepare the `.devcontainer` folder
 
-Inside your `A-RT/` directory, create a `.devcontainer` folder containing:
-- `devcontainer.json` (choose one of the two below)
+Please note that installation steps slightly differ depending on whether you're cloning from GitHub or mounting the repo locally. Use the files in `git_clone_installation/` or `local_mount_installation/` accordingly. Create a `.devcontainer/` folder inside the big `ALIGN/` directory with the following files:
+- `devcontainer.json` 
 - `Dockerfile`
-- `setup.sh` (not required for cloning)
-
-You can use the provided samples in this repository.
+- `setup.sh`
 
 ---
 
 #### 3. Prepare model weights
 
-Inside your `A-RT/` directory, create a `model_weights` folder containing all the model weights. In the 2 examples provided, these are named `A-RT_Weights` and `model_weights`.
+Download our model weights from XXXX and place them in an `ALIGN_Weights/` folder inside `ALIGN/`. If everything is installed correctly, there would be a bind mount for the weights to the container under `/workspaces/align/model_weights/`.
 
 ---
 
@@ -164,7 +160,7 @@ Inside your `A-RT/` directory, create a `model_weights` folder containing all th
 
 1. Open VS Code.
 2. Install the **Dev Containers extension** if you haven't already.
-3. Open the `A-RT/` folder in a **new VS Code window**.
+3. Open the `ALIGN/` folder in a **new VS Code window**.
 4. Press `F1` and select:  
    ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
 
