@@ -34,7 +34,7 @@ data_type = parts[-1] # train, test
 # 3. Define the paths relative to the root
 DICT_PATH = PROJECT_ROOT / "sample_data" / "all_col_metadata_20260512.pickle"
 if 'pretrain' in file_name.lower():
-    DATA_PATH = PROJECT_ROOT / "sample_data" / f"pretrained_{mode}_sample.csv"
+    DATA_PATH = PROJECT_ROOT / "sample_data" / f"pretrain_{mode}_sample.csv"
 else:
     DATA_PATH = PROJECT_ROOT / "sample_data" / f"{mode}_sample_{data_type}.csv"
 
