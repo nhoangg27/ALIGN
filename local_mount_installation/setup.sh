@@ -2,7 +2,7 @@
 set -e
 echo "Setting up environment after container creation..."
 
-WORKSPACE_DIR="/workspaces/align"
+WORKSPACE_DIR="/workspace/align"
 FAIRSEQ_DIR="$WORKSPACE_DIR/fairseq"
 
 # 1. Verify workspace exists

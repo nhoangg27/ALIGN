@@ -2,7 +2,7 @@
 set -e
 echo "Verifying environment..."
 
-WORKSPACE_DIR="/workspaces/align"
+WORKSPACE_DIR="/workspace/align"
 
 # Handle Model Weights Symlink (if needed by your code logic)
 if [ -d "$WORKSPACE_DIR/model_weights" ]; then

@@ -117,7 +117,7 @@ Please note that installation steps slightly differ depending on whether you're 
   
 #### 3. Prepare model weights
 
-Download our model weights from XXXX and place them in an `ALIGN_Weights/` folder inside `ALIGN/`. If everything is installed correctly, there would be a bind mount for the weights to the container under `/workspaces/align/model_weights/`.
+Download our model weights from XXXX and place them in an `ALIGN_Weights/` folder inside `ALIGN/`. If everything is installed correctly, there would be a bind mount for the weights to the container under `/workspace/align/model_weights/`.
 
 #### 4. Open Container in VS Code
 

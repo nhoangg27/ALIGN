@@ -70,10 +70,10 @@ RUN git clone https://github.com/facebookresearch/fairseq.git /tmp/fairseq && \
     python setup.py build_ext --inplace
 
 # Environment variable for model weights
-ENV MODEL_WEIGHTS_PATH=/workspaces/align/model_weights
+ENV MODEL_WEIGHTS_PATH=/workspace/align/model_weights
 
 # Create workspace directory
-WORKDIR /workspaces/align
+WORKDIR /workspace/align
 
 # Verify GPU access in container build
 RUN nvidia-smi || echo "Note: nvidia-smi may fail during build but should work when container runs with proper GPU flags"

@@ -53,25 +53,25 @@ RUN pip install \
     Cython==3.0.4
 
 # Set workspace
-WORKDIR /workspaces/align
+WORKDIR /workspace/align
 
 # Cache-busting ARG: Change this value to force a fresh clone
 ARG CACHEBUST=1
 
 # Remove existing folder if it exists and clone the ALIGN repo
-RUN rm -rf /workspaces/align && \
+RUN rm -rf /workspace/align && \
     git clone https://github.com/nhoangg27/ALIGN.git .
 
 # Install the internal fairseq subdirectory
-WORKDIR /workspaces/align/fairseq
+WORKDIR /workspace/align/fairseq
 RUN pip install --editable . && \
     python setup.py build_ext --inplace
 
 # Return to main workspace
-WORKDIR /workspaces/align
+WORKDIR /workspace/align
 
 # Environment variable for model weights
-ENV MODEL_WEIGHTS_PATH=/workspaces/align/model_weights
+ENV MODEL_WEIGHTS_PATH=/workspace/align/model_weights
 
 # Verify GPU access
 RUN nvidia-smi || echo "Note: nvidia-smi may fail during build"
