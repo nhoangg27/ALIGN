@@ -1,5 +1,11 @@
+#!/bin/bash
+
+# Dynamically find the project root (2 levels up)
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+PROJECT_ROOT=$(realpath "$SCRIPT_DIR/../../")
+
 CUDA_VISIBLE_DEVICES=0 fairseq-train \
-	--user-dir /workspaces/align/graphormer \
+    --user-dir "$PROJECT_ROOT/graphormer" \
 	--batch-size 64 \
 	--num-workers 20 \
 	--ddp-backend=legacy_ddp \
@@ -23,6 +29,6 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
 	--max-epoch 250 \
 	--no-epoch-checkpoints \
 	--freeze-level 0 \
-	--save-dir /workspaces/align/checkpoints \
+    --save-dir "$PROJECT_ROOT/checkpoints" \
 
 
