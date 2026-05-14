@@ -120,7 +120,7 @@ Alternatively, to make it easier to edit and organize files, you can also instal
 Your main project folder (e.g. `ALIGN/`) should look like this:
 
 <pre lang="markdown"> <code> ALIGN/ 
-  ├── .devcontainer/        ← Option 1 or Option 2 (see below)
+  ├── .devcontainer/        ← From 'git_clone_installation' or 'local_mount_installation' (see below)
   │ ├── devcontainer.json    
   │ ├── Dockerfile 
   │ └── setup.sh       
