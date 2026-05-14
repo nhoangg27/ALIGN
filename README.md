@@ -1,4 +1,6 @@
-# ![ALIGN Logo](ALIGN_logo_final.png)
+<p align="center">
+  <img src="ALIGN_logo_final.png" alt="ALIGN Logo" width="100%">
+</p>
 
 
 # **ALIGNing Learned Representations: Domain-General Models Triangulate Physicochemical Interactions in Analytical Separations**
