@@ -106,16 +106,12 @@ docker cp <container_id>:<path_inside_container> <path_on_host>
 ## Via VS Code Dev Containers
 Alternatively, to make it easier to edit and organize files, you can also install ALIGN using the **Dev Containers extension** in VS Code with GPU support.
 
----
-
 ### 🧰 Prerequisites
 
 - [Docker](https://docs.docker.com/get-started/get-docker/)
 - [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
 - [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 - Access to a machine with [**NVIDIA GPU**](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) and [drivers](https://www.nvidia.com/Download/index.aspx) properly installed.
-
----
 
 ### 📁 Folder Structure
 
@@ -129,8 +125,6 @@ Your main project folder (e.g. `ALIGN/`) should look like this:
   ├── ALIGN_repo/           ← Your project code (from GitHub or manual download) 
   ├── ALIGN_Weights/         </code> </pre>
 
----
-
 ### 🚀 Setup Steps
 
 #### 1. Clone or download this repository
@@ -139,22 +133,16 @@ You may choose to **download** and extract the repository manually. Place it ins
 
 Alternatively, you may also choose to clone it automatically via `git clone`.
 
----
-
 #### 2. Prepare the `.devcontainer` folder
 
 Please note that installation steps slightly differ depending on whether you're cloning from GitHub or mounting the repo locally. Use the files in `git_clone_installation/` or `local_mount_installation/` accordingly. Create a `.devcontainer/` folder inside the big `ALIGN/` directory with the following files:
 - `devcontainer.json` 
 - `Dockerfile`
 - `setup.sh`
-
----
-
+  
 #### 3. Prepare model weights
 
 Download our model weights from XXXX and place them in an `ALIGN_Weights/` folder inside `ALIGN/`. If everything is installed correctly, there would be a bind mount for the weights to the container under `/workspaces/align/model_weights/`.
-
----
 
 #### 4. Open in VS Code
 
@@ -163,8 +151,6 @@ Download our model weights from XXXX and place them in an `ALIGN_Weights/` folde
 3. Open the `ALIGN/` folder in a **new VS Code window**.
 4. Press `F1` and select:  
    ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
-
----
 
 # Data
 All data used in this study is publically available at the RepoRT github (https://github.com/michaelwitting/RepoRT/). **EDIT THIS FOR HUAN & LIT DATA** Those using this data should cite this work as follows:
