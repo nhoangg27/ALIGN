@@ -56,7 +56,7 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 
 # Installation
 
-To take the headache out of environment management, we’ve provided a pre-configured Docker Image for ALIGN. We recommend using **VS Code Dev Containers**; it gives you a full graphical interface to interact with the containerized code and files just like a local project, all while maintaining full GPU support. A beginner's guide to Docker and Dev Containers usage can be found [HERE](https://docker-curriculum.com/) and [HERE](https://code.visualstudio.com/docs/devcontainers/containers), respectively. 
+To take the headache out of environment management, we’ve provided a pre-configured Docker Image for ALIGN. We recommend using **VS Code Dev Containers**; it gives you a full graphical interface to interact with the containerized code and files just like a local project, all while maintaining full GPU support. You can find a beginner's guide to [Docker](https://docker-curriculum.com/) and [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers) if you want to learn more about the basics. 
 
 ### 🧰 Prerequisites
 
@@ -96,7 +96,7 @@ Your main project folder (e.g. `ALIGN/`) should look like this:
   ├── .devcontainer/        ← From 'git_clone_installation' or 'local_mount_installation' (see below)
   │ ├── devcontainer.json    
   │ ├── Dockerfile 
-  │ └── setup.sh       
+  │ └── setup.sh            ← Only if mounting from local download       
   ├── ALIGN_repo/           ← The project code (from cloning GitHub or manual download) 
   ├── ALIGN_Weights/         </code> </pre>
 
@@ -110,10 +110,10 @@ Alternatively, you may also choose to **clone** it automatically via `git clone`
 
 #### 2. Prepare the `.devcontainer` folder
 
-Please note that installation steps slightly differ depending on whether you're cloning from GitHub or mounting the repo locally. Use the files in `git_clone_installation/` or `local_mount_installation/` accordingly. Create a `.devcontainer/` folder inside the big `ALIGN/` directory with the following files:
+Please note that installation steps slightly differ depending on whether you're cloning from GitHub or mounting the repository locally. Use the files in `git_clone_installation/` or `local_mount_installation/` accordingly. Create a `.devcontainer/` folder inside the big `ALIGN/` directory with the following files:
 - `devcontainer.json` 
 - `Dockerfile`
-- `setup.sh`
+- `setup.sh` (optional, only if you're mounting from a local download)
   
 #### 3. Prepare model weights
 
@@ -126,13 +126,13 @@ Download our model weights from XXXX and place them in an `ALIGN_Weights/` folde
 3. Open the `ALIGN/` folder in a **new VS Code window**.
 4. Press `F1` and select:  
    ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
-5. Once the container finishes building, run `bash setup.sh` to finish setting up the environment.
+5. Once the container finishes building, run `bash setup.sh` to finish setting up the environment (if mounting locally).
 6. Navigate to the example directory and run the example script:
    ```bash
    cd examples/property_prediction
    bash HILIC.sh
    ```
-7. If it runs for an epoch and saves .pt files inside `checkpoints/`, you know you’ve succeeded.
+7. If it runs for an epoch and saves .pt files inside `checkpoints_HILIC/`, you know you’ve succeeded.
 
 # Data
 All data used in this study is publically available at the RepoRT github (https://github.com/michaelwitting/RepoRT/). **EDIT THIS FOR HUAN & LIT DATA** Those using this data should cite this work as follows:
