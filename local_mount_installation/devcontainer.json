@@ -27,7 +27,7 @@
   },
   "workspaceFolder": "/workspaces/align",
   "mounts": [
-    "source=${localWorkspaceFolder}/ALIGN,target=/workspaces/align,type=bind,consistency=cached",
+    "source=${localWorkspaceFolder}/ALIGN_repo,target=/workspaces/align,type=bind,consistency=cached",
     "source=${localWorkspaceFolder}/ALIGN_Weights,target=/workspaces/align/model_weights,type=bind,consistency=cached"
   ],
   "remoteUser": "root",
