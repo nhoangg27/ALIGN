@@ -131,7 +131,7 @@ Your main project folder (e.g. `ALIGN/`) should look like this:
 
 You may choose to **download** and extract the repository manually. Place it inside `ALIGN/` (here named `ALIGN_repo/`) for local mounting when we build the docker container.
 
-Alternatively, you may also choose to clone it automatically via `git clone`.
+Alternatively, you may also choose to **clone** it automatically via `git clone`.
 
 #### 2. Prepare the `.devcontainer` folder
 
