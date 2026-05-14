@@ -64,7 +64,8 @@ RUN rm -rf /workspace/align && \
 
 # Install the internal fairseq subdirectory
 WORKDIR /workspace/align/fairseq
-RUN pip install --editable . && \
+RUN pip uninstall fairseq -y || echo "No existing fairseq"
+RUN pip install -e . && \
     python setup.py build_ext --inplace
 
 # Return to main workspace
