@@ -347,7 +347,7 @@ class IRSpectraD(DGLDataset):
  
         for i in tqdm(x):
             
-            sm = str(i[0]).replace("Q", "#") ## Hashtags break some of our preprocessing scripts so we replace them with Qs to make life easier 
+            sm = str(i[1]).replace("Q", "#") ## Hashtags break some of our preprocessing scripts so we replace them with Qs to make life easier 
             mol = Chem.MolFromSmiles(sm)
             rt = torch.tensor([float(i[2])]) / 1000
 
