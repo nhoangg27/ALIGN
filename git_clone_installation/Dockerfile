@@ -84,6 +84,6 @@ RUN nvidia-smi || echo "Note: nvidia-smi may fail during build"
 RUN python3 -c "import torch; print('CUDA Config Check: PyTorch version', torch.__version__); print('CUDA Available:', torch.cuda.is_available())" || echo "Check failed"
 
 # Add message to bash startup
-RUN echo 'echo "Run setup.sh to finish setting up the ALIGN development environment."' >> /root/.bashrc
+RUN echo 'echo "The ALIGN development environment has been successfully set up."' >> /root/.bashrc
 
 CMD ["/bin/bash"]
