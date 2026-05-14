@@ -1,4 +1,6 @@
-<img width="5679" height="2871" alt="ALIGN_logo" src="https://github.com/user-attachments/assets/d82836d7-2458-4001-9415-8c02e38b3497" />
+<p align="center">
+  <img src="ALIGN_logo_final.png" alt="ALIGN Logo" width="400">
+</p>
 
 
 # **ALIGNing Learned Representations: Domain-General Models Triangulate Physicochemical Interactions in Analytical Separations**
