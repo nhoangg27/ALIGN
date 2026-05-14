@@ -124,7 +124,7 @@ Your main project folder (e.g. `ALIGN/`) should look like this:
   │ ├── devcontainer.json    
   │ ├── Dockerfile 
   │ └── setup.sh       
-  ├── ALIGN_repo/           ← Your project code (from GitHub or manual download) 
+  ├── ALIGN_repo/           ← The project code (from cloning GitHub or manual download) 
   ├── ALIGN_Weights/         </code> </pre>
 
 ### 🚀 Setup Steps
