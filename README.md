@@ -57,9 +57,9 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 # Installation
 
 ## Via Docker 
-We have developed a Docker Image to make installation and management of environments easier for Graphormer-RT. Installation instructions are as follows:
+We have developed a Docker Image to make installation and management of environments easier for ALIGN. Instructions are as follows:
 
-📦 How to Install and Run Graphormer-RT Using Docker Image
+📦 How to Install and Run ALIGN Using Docker Image
 
 1. Install the following software (if not already installed):
 - Docker: [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
