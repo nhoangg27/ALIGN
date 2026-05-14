@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ALIGN_logo_final.png" alt="ALIGN Logo" width="80%">
+  <img src="ALIGN_logo_final.png" alt="ALIGN Logo" width="75%">
 </p>
 
 
