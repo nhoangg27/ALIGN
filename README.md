@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ALIGN_logo_final.png" alt="ALIGN Logo" width="100%">
+  <img src="ALIGN_logo_final.png" alt="ALIGN Logo" width="80%">
 </p>
 
 
@@ -170,14 +170,14 @@ Sample data for generating 'RP specialist' and 'fused' models are found in the `
 
 The ```example/property_prediction/``` folder contains scripts and dataloaders to a) pre-train a model and b) finetune a pre-existing model. If you want to change the data source, you will need to edit code in the dataloader. Details for recommended hyperparameters are found in the Supplementary Information XXXXXXX.
 
-To fully pre-train a model, use the following script. Adjust ```--encoder-attention-heads``` to 64 for an RP specialist model and 128 for a fused model:
+To fully pre-train a model, use the following scripts. Adjust ```--encoder-attention-heads``` to 64 for an RP specialist model and 128 for a fused model:
 ```bash
-bash ../../examples/property_prediction/fused.sh
+bash ../../examples/property_prediction/pretrain_fused.sh  # also, pretrain_RP.sh
 ```
 
 To finetune a model, use the following script. Ensure that you have the correct paths for ```--pretrained-model-name``` and ```--finetune_from_model```:
 ```bash
-bash ../../examples/property_prediction/finetune_RP.sh
+bash ../../examples/property_prediction/RP.sh  # also, CCS.sh, DMS.sh, GC.sh, fused.sh
 ```
 
 Models can then be evaluated using the corresponding scripts in ```graphormer/evaluate/```. The flag ```--save-dir``` will allow you to save predictions alongside method data and SMILES strings:
