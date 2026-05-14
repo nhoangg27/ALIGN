@@ -13,12 +13,33 @@ import dgl
 import os
 
 from .featurizing_helpers import *
-print("YOU'RE DEF IN THE CORRECT FILE")
 
 import itertools
 
 from graphormer.data import register_dataset
 from sklearn.model_selection import train_test_split
+
+from pathlib import Path
+
+# 1. Anchor to the project root (3 levels up from the loader subfolder)
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+
+# 2. Dynamically determine 'mode' and 'type' from the filename/folder
+# Example: CCS_loader_train.py -> mode='CCS', type='train'
+file_name = Path(__file__).stem
+parts = file_name.split('_')
+mode = parts[0]      # fused, rp
+data_type = parts[-1] # train, test
+
+# 3. Define the paths relative to the root
+DICT_PATH = PROJECT_ROOT / "sample_data" / "all_col_metadata_20260512.pickle"
+if 'pretrain' in file_name.lower():
+    DATA_PATH = PROJECT_ROOT / "sample_data" / f"pretrained_{mode}_sample.csv"
+else:
+    DATA_PATH = PROJECT_ROOT / "sample_data" / f"{mode}_sample_{data_type}.csv"
+
+print("YOU'RE DEF IN THE CORRECT FILE")
+print(f"Loading {mode} {data_type} data from: {DATA_PATH}")
 
 
 companies = ['', 'Waters', 'Thermo', 'Agilent', 'Restek', 'Merck', 'Phenomenex', 'HILICON','GL','Advanced', 'Other']
@@ -299,13 +320,13 @@ class IRSpectraD(DGLDataset):
         print("I'm in the right file")
 
         # Change data path accordingly
-        x = import_data(r'/workspaces/align/sample_data/pretrain_fused_sample.csv')
+        x = import_data(str(DATA_PATH))
 
         random.seed(129)
         random.shuffle(x)
 
         # Change method dictionary path accordingly
-        with open('/workspaces/align/sample_data/all_col_metadata_20260512.pickle', 'rb') as handle: 
+        with open(DICT_PATH, 'rb') as handle: 
             self.columndict = pickle.load(handle)
         allowed = ['RP', 'HILIC', 'PFP']
 
