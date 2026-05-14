@@ -127,7 +127,7 @@ Download our model weights from XXXX and place them in an `ALIGN_Weights/` folde
 4. Press `F1` and select:  
    ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
 5. Once the container finishes building, run `bash setup.sh` to finish setting up the environment.
-6. Navigate to the example directory, make the example script executable, and run the example script:
+6. Navigate to the example directory and run the example script:
    ```bash
    cd examples/property_prediction
    bash HILIC.sh
