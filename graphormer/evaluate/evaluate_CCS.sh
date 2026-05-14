@@ -20,6 +20,6 @@ python evaluate_CCS.py \
     --mlp-layers 5 \
     --batch-size 64 \
     --num-classes 1 \
-    --save-dir "$PROJECT_ROOT/checkpoints_CCS/checkpoint_last.pt" \
+    --save-dir "$PROJECT_ROOT/checkpoints_CCS" \
     --split train \
     # --save-path "$PROJECT_ROOT/results/CCS_sample.csv" \

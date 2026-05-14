@@ -20,6 +20,6 @@ python evaluate_RT.py \
     --mlp-layers 5 \
     --batch-size 64 \
     --num-classes 1 \
-    --save-dir "$PROJECT_ROOT/checkpoints_fused/checkpoint_last.pt" \
+    --save-dir "$PROJECT_ROOT/checkpoints_fused" \
     --split train \
     # --save-path "$PROJECT_ROOT/results/fused_sample.csv" \

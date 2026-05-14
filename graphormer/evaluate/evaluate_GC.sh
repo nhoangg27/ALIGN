@@ -20,6 +20,6 @@ python evaluate_GC.py \
     --mlp-layers 5 \
     --batch-size 64 \
     --num-classes 1 \
-    --save-dir "$PROJECT_ROOT/checkpoints_GC/checkpoint_last.pt" \
+    --save-dir "$PROJECT_ROOT/checkpoints_GC" \
     --split train \
     # --save-path "$PROJECT_ROOT/results/GC_sample.csv" \

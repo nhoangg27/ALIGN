@@ -20,6 +20,6 @@ python evaluate_DMS.py \
     --mlp-layers 5 \
     --batch-size 64 \
     --num-classes 1 \
-    --save-dir "$PROJECT_ROOT/checkpoints_DMS/checkpoint_last.pt" \
+    --save-dir "$PROJECT_ROOT/checkpoints_DMS" \
     --split train \
     # --save-path "$PROJECT_ROOT/results/DMS_sample.csv" \
