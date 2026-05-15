@@ -56,7 +56,7 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 
 # Installation
 
-To take the headache out of environment management, we’ve provided a pre-configured Docker Image for ALIGN. We recommend using **VS Code Dev Containers**; it gives you a full graphical interface to interact with the containerized code and files just like a local project, all while maintaining full GPU support. You can find a beginner's guide to [Docker](https://docker-curriculum.com/) and [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers) if you want to learn more about the basics. 
+To take the headache out of environment management, we’ve provided a pre-configured Docker Image for ALIGN. We recommend using **VS Code Dev Containers**; it gives you a full graphical interface to interact with the containerized code and files just like a local project, all while maintaining full GPU support. For more details, you can consult the documentations on [Docker](https://docker-curriculum.com/) and [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers). 
 
 ### 🧰 Prerequisites
 
@@ -65,7 +65,7 @@ To take the headache out of environment management, we’ve provided a pre-confi
 - [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 - Access to a machine with [NVIDIA GPU](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) and [drivers](https://www.nvidia.com/Download/index.aspx) properly installed
 
-You can verify Docker and NVIDIA installation via the following commands:
+You can verify Docker and NVIDIA installation on **GPU** via the following commands:
 ```bash
 docker --version
 ```
@@ -76,9 +76,11 @@ nvidia-smi
 nvidia-container-cli --version
 ```
 
-To find your active `<container_id>`, run `docker ps`.
-
 Since Dev Containers allow you to drag-and-drop or edit files directly through the VS Code sidebar, you won't need the command line for most tasks. However, if you ever need to quickly move data or results via the terminal, you can use these "just in case" commands:
+- To find your active `<container_id>` after building the container:
+```bash
+docker ps
+```
 - To **UPLOAD** files (_e.g._, new data) to the docker container:
 ```bash
 docker cp <path_to_local_file> <container_id>:<destination_directory_inside_container>
@@ -117,7 +119,7 @@ Please note that installation steps slightly differ depending on whether you're 
   
 #### 3. Prepare model weights
 
-Download our model weights from XXXX and place them in an `ALIGN_Weights/` folder inside `ALIGN/`. If everything is installed correctly, there would be a bind mount for the weights to the container under `/workspace/align/model_weights/`.
+Sample RP and fused models that were pretrained for our study are freely available online at XXXXXXX. These can be used for model evaluation or for finetuning using the requisite scripts. Download our model weights from XXXX and place them in an `ALIGN_Weights/` folder inside `ALIGN/`. If everything is installed correctly, there would be a bind mount for the weights to the container under `/workspace/align/model_weights/`.
 
 #### 4. Open Container in VS Code
 
@@ -176,7 +178,7 @@ where $l$ is the column length (mm), $ID$ is the column inner diameter (mm), and
   <img src="GradientFormalisms.png" alt="Gradient Info" width="75%">
 </p>
 
-To support downstream fine-tuning, we have provided a utility script (`scripts/update_method_dictionary.py`) to append new gradients to our method dictionary (`sample_data/all_col_metadata_20260512.pickle`). This file includes consolidated column metadata, including RepoRT-calculated metrics like $t_0$ and HSMB/Tanaka parameters, structured with the following headers:
+To support downstream finetuning, we have provided a utility script (`scripts/update_method_dictionary.py`) to append new gradients to our method dictionary (`sample_data/all_col_metadata_20260512.pickle`). This file includes consolidated column metadata, including RepoRT-calculated metrics like $t_0$ and HSMB/Tanaka parameters, structured with the following headers:
 
 ```python
 ['company_name', 'usp_code', 'col_length', 'col_innerdiam', 'col_part_size', 'temp', 'col_fl', 'col_dead', 'HPLC_type','A_solv', 'B_solv', 'time1', 'grad1', 'time2', 'grad2', 'time3', 'grad3', 'time4', 'grad4', 'A_pH', 'B_pH', 'A_start', 'A_end', 'B_start', 'B_end',  'eluent_A_formic', 'eluent_A_formic_unit', 'eluent_A_acetic', 'eluent_A_acetic_unit','eluent_A_trifluoroacetic', 'eluent_A_trifluoroacetic_unit','eluent_A_phosphor', 'eluent_A_phosphor_unit','eluent_A_nh4ac','eluent_A_nh4ac_unit', 'eluent_A_nh4form','eluent_A_nh4form_unit','eluent_A_nh4carb', 'eluent_A_nh4carb_unit','eluent_A_nh4bicarb','eluent_A_nh4bicarb_unit', 'eluent_A_nh4f','eluent_A_nh4f_unit','eluent_A_nh4oh', 'eluent_A_nh4oh_unit','eluent_A_trieth','eluent_A_trieth_unit','eluent_A_triprop','eluent_A_triprop_unit','eluent_A_tribut', 'eluent_A_tribut_unit','eluent_A_nndimethylhex', 'eluent_A_nndimethylhex_unit','eluent_A_medronic', 'eluent_A_medronic_unit','eluent_B_formic', 'eluent_B_formic_unit', 'eluent_B_acetic', 'eluent_B_acetic_unit','eluent_B_trifluoroacetic', 'eluent_B_trifluoroacetic_unit','eluent_B_phosphor', 'eluent_B_phosphor_unit','eluent_B_nh4ac','eluent_B_nh4ac_unit', 'eluent_B_nh4form','eluent_B_nh4form_unit','eluent_B_nh4carb', 'eluent_B_nh4carb_unit','eluent_B_nh4bicarb','eluent_B_nh4bicarb_unit', 'eluent_B_nh4f','eluent_B_nh4f_unit','eluent_B_nh4oh', 'eluent_B_nh4oh_unit','eluent_B_trieth','eluent_B_trieth_unit', 'eluent_B_triprop','eluent_B_triprop_unit','eluent_B_tribut', 'eluent_B_tribut_unit','eluent_B_nndimethylhex', 'eluent_B_nndimethylhex_unit','eluent_B_medronic', 'eluent_B_medronic_unit', 'kPB', 'alpha_CH2', 'alpha_T_O', 'alpha_C_P', 'alpha_B_P', 'alpha_B_P1', 'particle_size', 'pore_size', 'H', 'S_star', 'A', 'B', 'C_pH_28)', 'C_pH_7)', 'EB_ret_factor']
@@ -184,38 +186,37 @@ To support downstream fine-tuning, we have provided a utility script (`scripts/u
 
 
 # Usage
-Sample data for generating 'RP specialist' and 'fused' models are found in the ```sample_data/``` folder and demonstrates the intended structure. RP specialist models have 64 attention heads, while fused models have 128.
+Sample data for generating 'RP specialist' and 'fused' models are found in the `sample_data/` folder and demonstrates the intended structure. RP specialist models have 64 attention heads, while fused models have 128.
 
-The ```example/property_prediction/``` folder contains scripts and dataloaders to a) pre-train a model and b) finetune a pre-existing model. If you want to change the data source, you will need to edit code in the dataloader. Details for recommended hyperparameters are found in the Supplementary Information XXXXXXX.
+The `example/property_prediction/` folder contains scripts and dataloaders to a) pre-train a model and b) finetune a pre-existing model. If you want to change the data source, you will need to edit code in the dataloader. Details for recommended hyperparameters are found in the Supplementary Information XXXXXXX.
 
-To fully pre-train a model, use the following scripts. Adjust ```--encoder-attention-heads``` to 64 for an RP specialist model and 128 for a fused model:
+To fully pretrain a model, use the following script. Adjust `--encoder-attention-heads` to 64 for an RP specialist model and 128 for a fused model:
+
 ```bash
 bash ../../examples/property_prediction/pretrain_fused.sh  # also, pretrain_RP.sh
 ```
 
-To finetune a model, use the following script. Ensure that you have the correct paths for ```--pretrained-model-name``` and ```--finetune_from_model```:
+To finetune a model, use the following script. Ensure that you have the correct paths for `--pretrained-model-name` and `--finetune_from_model`. The flag `--save-dir` allows you to save the best performing model (based on MAE) and the last model trained for evaluation (`checkpoint_best.pt` and `checkpoint_last.pt`, respectively):
+
 ```bash
 bash ../../examples/property_prediction/RP.sh  # also, CCS.sh, DMS.sh, GC.sh, fused.sh
 ```
 
-Models can then be evaluated using the corresponding scripts in ```graphormer/evaluate/```. The flag ```--save-dir``` will allow you to save predictions alongside method data and SMILES strings:
+Models from the checkpoint folder can then be evaluated using the corresponding scripts in `graphormer/evaluate/`. The flag `--save-path` will allow you to save predictions alongside method data, SMILES strings, and our uncertainty metric:
+
 ```bash
 bash ../../graphormer/evaluate_RP.sh  # also, evaluate_CCS.sh, evaluate_DMS.sh, evaluate_GC.sh, evaluate_fused.sh
 ```
 
-Pre-graph encoders are found in ```graphormer/modules/graphormer_layers.py```. Graph layers and MLPs are found in ```graphormer/models/```.
+Pre-graph encoders are found in `graphormer/modules/graphormer_layers.py`. Graph layers and MLPs are found in `graphormer/models/`.
 
-There are command line tools available for freezing layers of the graph encoder of MLP (see ```--freeze-level```). A negative freeze-level will freeze layers of the graph encoder starting from the front (-4 freezes the first 4 layers of the graph encoder). A positive freeze level will freeze layers in the MLP starting from the front (2 will freeze the first two layers of the MLP). There are additional flags for freezing the atomic feature encoders and graph feature encoders.
-
-# Models
-
-Sample RP and HILIC models that were pretrained for our study are freely available online at XXXXXXX. These can be used for model evaluation or for finetuning using the requisite scripts. 
+There are command line tools available for freezing layers of the graph encoder of MLP (`--freeze-level`). A negative freeze-level will freeze layers of the graph encoder starting from the front (-4 freezes the first 4 layers of the graph encoder). A positive freeze level will freeze layers in the MLP starting from the front (2 will freeze the first two layers of the MLP). There are additional flags for freezing the atomic feature encoders and graph feature encoders.
 
 # Common Errors
 
-"Segmentation Fault... Core Dumped" may indicate that you have installed the incorrect version of [PyTorch Geometric](https://data.pyg.org/whl/). This can be further tested by checking the package import (_e.g._, ```from pytorch_geometric.data import data```)
+"Segmentation Fault... Core Dumped" may indicate that you have installed the incorrect version of [PyTorch Geometric](https://data.pyg.org/whl/). This can be further tested by checking the package import (_e.g._, `from pytorch_geometric.data import data`)
 
-If gradients explode in training, it is recommended that you lower learning rates or increase the ```fp16-scale-tolerance``` value in the bash script
+If gradients explode in training, it is recommended that you lower learning rates or increase the `fp16-scale-tolerance` value in the bash script
 
 # Contact
 
