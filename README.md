@@ -206,7 +206,7 @@ To evaluate trained checkpoints, utilize the corresponding evaluation scripts lo
 
 ```bash
 cd graphormer/evaluate
-bash evaluate_RP.sh  # alternative: evaluate_CCS.sh, evaluate_DMS.sh, evaluate_GC.sh, evaluate_fused.sh
+bash evaluate_RP.sh  # alternatives: evaluate_CCS.sh, evaluate_DMS.sh, evaluate_GC.sh, evaluate_fused.sh
 ```
 
 ## 🧠 Model Architecture
