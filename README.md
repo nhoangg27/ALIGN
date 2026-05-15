@@ -151,7 +151,7 @@ Sample RP and fused models that were pretrained for our study are freely availab
    bash RP.sh
    ```
    
-8. If it runs for an epoch and saves .pt files inside `checkpoints_RP/`, you know you’ve succeeded. To train/evaluate models, consult the "Usage" section below.
+8. If it runs for an epoch and saves `.pt` files inside `checkpoints_RP/`, you know you’ve succeeded.
 
 # Usage
 
