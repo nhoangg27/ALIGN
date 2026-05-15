@@ -124,15 +124,18 @@ Download our model weights from XXXX and place them in an `ALIGN_Weights/` folde
 1. Open VS Code.
 2. Install the **Dev Containers extension** if you haven't already.
 3. Open the `ALIGN/` folder in a **new VS Code window**.
-4. Press `F1` and select:  
+4. Press `F1` and select:
+   
    ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
-5. Once the container finishes building, run `bash setup.sh` to finish setting up the environment (if mounting locally).
-6. Navigate to the example directory and run the example script:
+   
+6. Once the container finishes building, run `bash setup.sh` to finish setting up the environment (if mounting locally).
+7. Navigate to the example directory and run the example script:
+   
    ```bash
    cd examples/property_prediction
    bash HILIC.sh
    ```
-7. If it runs for an epoch and saves .pt files inside `checkpoints_HILIC/`, you know you’ve succeeded.
+8. If it runs for an epoch and saves .pt files inside `checkpoints_HILIC/`, you know you’ve succeeded.
 
 # Data and Chromatographic Gradients
 All in-house benchmarking datasets in this study are publically available at **INSERT ZENODO LINK WHEN AVAILABLE**.
