@@ -18,7 +18,7 @@ col_innerdiam = 2.1
 col_part_size = 1.7
 temp = 45 ##
 col_fl = 0.6
-col_dead = 0.8268749999999999 ## calculated by RepoRT
+col_dead = 0.8268749999999999  ## calculated by RepoRT, col_dead = 0.0005 * col_length * col_innerdiam**2 / col_fl
 HPLC_type = 'HILIC'
 A_solv = 'acn'
 B_solv = 'h2o'
@@ -106,6 +106,7 @@ alpha_T_O = 0
 alpha_C_P = 0
 alpha_B_P = 0
 alpha_B_P1 = 0
+
 ## HSMB Parameters (calcualted by RepoRT)
 particle_size = 0
 pore_size = 0
@@ -121,7 +122,7 @@ column_params = [company_name, usp_code, col_length, col_innerdiam, col_part_siz
                  A_pH, B_pH, A_start, A_end, B_start, B_end, eluent_A_formic, eluent_A_formic_unit, eluent_A_acetic, eluent_A_acetic_unit, eluent_A_trifluoroacetic, eluent_A_trifluoroacetic_unit, eluent_A_phosphor, eluent_A_phosphor_unit, eluent_A_nh4ac, eluent_A_nh4ac_unit, eluent_A_nh4form, eluent_A_nh4form_unit, eluent_A_nh4carb, eluent_A_nh4carb_unit, eluent_A_nh4bicarb, eluent_A_nh4bicarb_unit, eluent_A_nh4f, eluent_A_nh4f_unit, eluent_A_nh4oh, eluent_A_nh4oh_unit, eluent_A_trieth, eluent_A_trieth_unit, eluent_A_triprop, eluent_A_triprop_unit, eluent_A_tribut, eluent_A_tribut_unit, eluent_A_nndimethylhex, eluent_A_nndimethylhex_unit, eluent_A_medronic, eluent_A_medronic_unit, eluent_B_formic, eluent_B_formic_unit, eluent_B_acetic, eluent_B_acetic_unit, eluent_B_trifluoroacetic, eluent_B_trifluoroacetic_unit, eluent_B_phosphor, eluent_B_phosphor_unit,eluent_B_nh4ac ,eluent_B_nh4ac_unit ,eluent_B_nh4form ,eluent_B_nh4form_unit ,eluent_B_nh4carb ,eluent_B_nh4carb_unit ,eluent_B_nh4bicarb ,eluent_B_nh4bicarb_unit ,eluent_B_nh4f ,eluent_B_nh4f_unit ,eluent_B_nh4oh ,eluent_B_nh4oh_unit ,eluent_B_trieth ,eluent_B_trieth_unit ,eluent_B_triprop ,eluent_B_triprop_unit ,eluent_B_tribut ,eluent_B_tribut_unit ,eluent_B_nndimethylhex ,eluent_B_nndimethylhex_unit ,eluent_B_medronic ,eluent_B_medronic_unit, \
                  kPB ,alpha_CH2 ,alpha_T_O ,alpha_C_P ,alpha_B_P , alpha_B_P1 ,particle_size ,pore_size ,H ,S_star ,A ,B ,C_pH_28 ,C_pH_7 ,EB_ret_factor]
 
-dict_path = '/workspace/align/sample_data/all_col_metadata_Apr07.pickle'
+dict_path = '/workspace/align/sample_data/all_col_metadata_20250512.pickle'
 
 with open(dict_path, 'rb') as f:
     data = pickle.load(f)
@@ -132,6 +133,7 @@ assert len(header) == len(column_params), f"Header length {len(header)} does not
 
 data[method_name] = column_params
 
+# Either write to new .pickle file to avoid corrupting the old file, or add on to it
 output_path = '/workspace/graphormer-rt/sample_data/all_col_metadata_20250512.pickle'
 
 with open(output_path, 'wb') as f:
