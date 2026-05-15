@@ -145,16 +145,14 @@ Sample RP and fused models that were pretrained for our study are freely availab
    ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
    
 6. Once the container finishes building, run `bash setup.sh` to finish setting up the environment (if mounting locally). You may skip this step if you are cloning the repository.
-7. Navigate to the example directory and run the example script:
+7. To test whether the installation is working properly, navigate to the example directory and execute:
    
    ```bash
    cd examples/property_prediction
    bash RP.sh
    ```
    
-8. If it runs for an epoch and saves .pt files inside `checkpoints_RP/`, you know you’ve succeeded.
-
-For more details on using ALIGN, see "Usage" below.
+8. If it runs for an epoch and saves .pt files inside `checkpoints_RP/`, you know you’ve succeeded. To train/evaluate models, consult the "Usage" section below.
 
 # Usage
 
@@ -162,14 +160,14 @@ For more details on using ALIGN, see "Usage" below.
 The repository is structured into distinct functional modules for data processing, training, and evaluation:
 - `examples/property_prediction/`: contains the primary scripts and data loaders for pre-training and fine-tuning models
 - `graphormer/evaluate/`: contains specialized scripts and data loaders for model evaluation
-- `sample_data/`: includes template datasets in .csv format
+- `sample_data/`: includes template datasets in `.csv` format
 
 The pipeline automatically infers the data source based on the executed script name. To run the pipeline with a custom dataset, update the data pathways directly within the relevant data loader:
-1. Navigate to the targeted chromatography mode folder under the loader directory (_e.g._, CCS, RP).
+1. Navigate to the targeted chromatography mode folder `*_loader` (_e.g._, CCS, RP) in either `examples/property_prediction/` or `graphormer/evaluate/`.
 2. Open `*_loader_train.py` and update the `DATA_PATH` variable to point to your data file.
 
 ## 🛠️ Hyperparameters & Configuration Flags
-Model training and evaluation are executed via Bash scripts (`.sh`). For a complete discussion on recommended hyperparameter configurations, refer to Supplementary Note 6 in the Supplementary Information.
+Model training and evaluation are executed via bash scripts (`.sh`). For a complete discussion on recommended hyperparameter configurations, refer to Supplementary Note 6 in the Supplementary Information.
 
 Key command-line arguments include:
 - `--user-data-dir` and `--dataset-name`: point to the corresponding dataloader and dataset registered in `*_loader_train.py`
@@ -183,7 +181,7 @@ The `--freeze-level` argument operates on the graph encoder and multi-layer perc
 - **Negative freeze-level**: freeze layers of the _graph encoder_ starting from the front (_e.g._, `-4` freezes the first 4 layers)
 - **Positive freeze level**: freeze layers of the _MLP_ starting from the front (_e.g._, `2` freezes the first two layers of the MLP)
 
-There are additional flags for freezing the atomic feature encoders and graph feature encoders.
+Additional flags are available for independently freezing the atomic feature encoders and graph feature encoders.
 
 ## 🤖 Execution Scripts
 
@@ -194,6 +192,7 @@ To fully pretrain a model from scratch:
 cd examples/property_prediction
 bash pretrain_RP.sh  # alternative: pretrain_fused.sh
 ```
+
 ### 🎯 Finetuning
 To finetune a pre-existing model on a specific chromatographic mode:
 
@@ -212,7 +211,7 @@ bash evaluate_RP.sh  # alternative: evaluate_CCS.sh, evaluate_DMS.sh, evaluate_G
 
 ## 🧠 Model Architecture
 For users looking to modify underlying model layers, the core components are located at:
-- Pre-graph encoders: `graphormer/modules/graphormer_layers.py`
+- Pre-graph (chromatographic and atom feature) encoders: `graphormer/modules/graphormer_layers.py`
 - Graph layers and MLPs: `graphormer/models/`
 
 # Data and Chromatographic Gradients
