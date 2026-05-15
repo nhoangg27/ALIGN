@@ -97,20 +97,20 @@ Your main project folder (e.g. `ALIGN/`) should look like this:
   │ ├── devcontainer.json    
   │ ├── Dockerfile 
   │ └── setup.sh            ← Only if mounting from local download       
-  ├── ALIGN_repo/           ← The project code (from cloning GitHub or manual download) 
+  ├── ALIGN-main/           ← The project code (from cloning GitHub or manual download) 
   ├── ALIGN_Weights/         </code> </pre>
 
 ### 🚀 Setup Steps
 
 #### 1. Clone or download this repository
 
-You may choose to **download** and extract the repository manually. Place it inside `ALIGN/` (here named `ALIGN_repo/`) for local mounting when we build the docker container.
+You may choose to **download** and extract the repository manually. Place it inside `ALIGN/` for local mounting (here named `ALIGN-main/`) when we build the docker container.
 
 Alternatively, you may also choose to **clone** it automatically via `git clone`.
 
 #### 2. Prepare the `.devcontainer` folder
 
-Please note that installation steps slightly differ depending on whether you're cloning from GitHub or mounting the repository locally. Use the files in `git_clone_installation/` or `local_mount_installation/` accordingly. Create a `.devcontainer/` folder inside the big `ALIGN/` directory with the following files:
+Please note that installation steps slightly differ depending on whether you're cloning from GitHub or mounting the repository locally. Use the configuration files in `git_clone_installation/` or `local_mount_installation/` accordingly. Create a `.devcontainer/` folder inside the big `ALIGN/` directory with the following files:
 - `devcontainer.json` 
 - `Dockerfile`
 - `setup.sh` (optional, only if you're mounting from a local download)
