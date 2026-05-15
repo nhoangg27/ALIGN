@@ -379,7 +379,7 @@ x = import_data(r'/home/weeb/Desktop/Cailum/data/test_full.csv')
 data = QM9(label_keys=["mu"])
 print(data)
 
-class IRSpectraD(DGLDataset):
+class AtomBondEncd(DGLDataset):
     def __init__(self):
         self.mode = ":("
         self.save_path_2 = '/home/weeb/shit/Graphormer/examples/property_prediction/training_dataset/'
@@ -458,10 +458,10 @@ class IRSpectraD(DGLDataset):
     #     info_path = os.path.join(self.save_path_2, self.mode + '_info.pkl')
     #     return os.path.exists(graph_path) and os.path.exists(info_path)
 
-@register_dataset("customized_IRSpectraDataset")
+@register_dataset("customized_AtomBondEncdataset")
 def create_customized_dataset():
     save_path = '/home/weeb/shit/Graphormer/examples/property_prediction/training_dataset/'
-    dataset = IRSpectraD()
+    dataset = AtomBondEncd()
 
     # graph_path = os.path.join(save_path, 'trainingdatasetgraphs_dgl_graph.bin')
     # info_path = os.path.join(save_path, 'trainingdatasetlabels_info.pkl')

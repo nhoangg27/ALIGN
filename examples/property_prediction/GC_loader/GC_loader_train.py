@@ -166,7 +166,7 @@ def featurize_column(column_params, index):
     return features
 
 
-class IRSpectraD(DGLDataset):
+class AtomBondEncd(DGLDataset):
     def __init__(self):
         self.mode = ":("
         ## atom encodings
@@ -425,7 +425,7 @@ class IRSpectraD(DGLDataset):
 @register_dataset("GC")
 def create_customized_dataset():
 
-    dataset = IRSpectraD()
+    dataset = AtomBondEncd()
     num_graphs = len(dataset)
 
     train = 0.8
