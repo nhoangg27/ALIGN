@@ -66,6 +66,7 @@ To take the headache out of environment management, we’ve provided a pre-confi
 - Access to a machine with [NVIDIA GPU](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) and [drivers](https://www.nvidia.com/Download/index.aspx) properly installed
 
 You can verify Docker and NVIDIA installation on **GPU** via the following commands:
+
 ```bash
 docker --version
 ```
@@ -94,21 +95,31 @@ docker cp <container_id>:<path_inside_container> <path_on_host>
 
 Your main project folder (e.g. `ALIGN/`) should look like this:
 
+- If you're cloning directly from GitHub
+
 <pre lang="markdown"> <code> ALIGN/ 
-  ├── .devcontainer/        ← From 'git_clone_installation' or 'local_mount_installation' (see below)
+  ├── .devcontainer/        ← From 'git_clone_installation' (see Setup Step 2)
+  │ ├── devcontainer.json    
+  │ ├── Dockerfile       
+  ├── ALIGN_Weights/         (see Setup Step 3)  </code> </pre>
+
+- If you download the repository and mount it to the docker container from your local machine
+
+<pre lang="markdown"> <code> ALIGN/ 
+  ├── .devcontainer/        ← From 'local_mount_installation' (see Setup Step 2)
   │ ├── devcontainer.json    
   │ ├── Dockerfile 
-  │ └── setup.sh            ← Only if mounting from local download       
-  ├── ALIGN-main/           ← The project code (from cloning GitHub or manual download) 
-  ├── ALIGN_Weights/         </code> </pre>
+  │ └── setup.sh      
+  ├── ALIGN-main/
+  ├── ALIGN_Weights/         (see Setup Step 3)  </code> </pre>
 
 ### 🚀 Setup Steps
 
 #### 1. Clone or download this repository
 
-You may choose to **download** and extract the repository manually. Place it inside `ALIGN/` for local mounting (here named `ALIGN-main/`) when we build the docker container.
+You may choose to **clone** the repository automatically from GitHub via `git clone`. 
 
-Alternatively, you may also choose to **clone** it automatically via `git clone`.
+Alternatively, you may also choose to **download** and extract the repository manually. If this is the case, place it inside `ALIGN/` for local mounting (here named `ALIGN-main/`) when we build the docker container.
 
 #### 2. Prepare the `.devcontainer` folder
 
@@ -119,9 +130,9 @@ Please note that installation steps slightly differ depending on whether you're 
   
 #### 3. Prepare model weights
 
-Sample RP and fused models that were pretrained for our study are freely available online at XXXXXXX. These can be used for model evaluation or for finetuning using the requisite scripts. Download our model weights from XXXX and place them in an `ALIGN_Weights/` folder inside `ALIGN/`. If everything is installed correctly, there would be a bind mount for the weights to the container under `/workspace/align/model_weights/`.
+Sample RP and fused models that were pretrained for our study are freely available online at XXXXXXX. These can be used for model evaluation or for finetuning using the requisite scripts. Download our model weights and place them in an `ALIGN_Weights/` folder inside `ALIGN/`. If everything is installed correctly, there would be a bind mount for the weights to the container under `/workspace/align/model_weights/`.
 
-#### 4. Open Container in VS Code
+#### 4. Build container
 
 1. In VS Code, install the **Dev Containers extension** if you haven't already.
 3. Open the `ALIGN/` folder in a **new window**.
@@ -140,6 +151,7 @@ Sample RP and fused models that were pretrained for our study are freely availab
    cd examples/property_prediction
    bash RP.sh
    ```
+   
 8. If it runs for an epoch and saves .pt files inside `checkpoints_RP/`, you know you’ve succeeded.
 
 # Data and Chromatographic Gradients
