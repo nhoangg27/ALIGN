@@ -94,7 +94,7 @@ docker cp <container_id>:<path_inside_container> <path_on_host>
 
 Your main project folder (e.g. `ALIGN/`) should look like this
 
-- If you're cloning directly from GitHub:
+- If you **clone** directly from GitHub:
 
 <pre lang="markdown"> <code> ALIGN/ 
   ├── .devcontainer/        ← From 'git_clone_installation' (see Setup Step 2)
@@ -102,7 +102,7 @@ Your main project folder (e.g. `ALIGN/`) should look like this
   │ ├── Dockerfile       
   ├── ALIGN_Weights/         (see Setup Step 3)  </code> </pre>
 
-- If you download the repository and mount it to the docker container from your local machine:
+- If you **download** the repository and manually mount it to the docker container from your local machine:
 
 <pre lang="markdown"> <code> ALIGN/ 
   ├── .devcontainer/        ← From 'local_mount_installation' (see Setup Step 2)
