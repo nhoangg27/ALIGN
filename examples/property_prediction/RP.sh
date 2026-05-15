@@ -30,8 +30,8 @@ CUDA_VISIBLE_DEVICES=0 fairseq-train \
     --no-epoch-checkpoints \
     --freeze-level -4  \
     --save-dir "$PROJECT_ROOT/checkpoints_RP" \
-    --pretrained-model-name "$PROJECT_ROOT/model_weights/RP_specialist/checkpoint_last.pt" \
-	--finetune-from-model "$PROJECT_ROOT/model_weights/RP_specialist/checkpoint_last.pt" \
+    --pretrained-model-name "$PROJECT_ROOT/model_weights/RP_specialist.pt" \
+	--finetune-from-model "$PROJECT_ROOT/model_weights/RP_specialist.pt" \
 
 
 
