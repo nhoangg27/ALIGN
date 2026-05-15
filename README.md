@@ -63,7 +63,7 @@ To take the headache out of environment management, we’ve provided a pre-confi
 - [Docker](https://docs.docker.com/get-started/get-docker/)
 - [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
 - [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-- Access to a machine with [**NVIDIA GPU**](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) and [drivers](https://www.nvidia.com/Download/index.aspx) properly installed
+- Access to a machine with [NVIDIA GPU](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) and [drivers](https://www.nvidia.com/Download/index.aspx) properly installed
 
 You can verify Docker and NVIDIA installation via the following commands:
 ```bash
@@ -127,7 +127,7 @@ Download our model weights from XXXX and place them in an `ALIGN_Weights/` folde
    
    ➜ `Dev Containers: Reopen in Container`
 
-   <u>**NOTE:**</u> if the environment is broken and you need to rebuild, select
+   **<u>NOTE:</u>** if the environment is broken and you need to rebuild, select
 
    ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`.
    
