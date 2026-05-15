@@ -170,6 +170,10 @@ The pickle file (`sample_data/all_col_metadata_20260512.pickle`) contain process
 # Custom Gradients
 Below is a visualization of how our models "see" the chromatographic gradients. Retention times collected in the corresponding method are shown as red dots, while inflection points for the gradient are shown in green. Several column parameters calculated from the RepoRT workflow are also displayed. We have built a script (`scripts/update_method_dictionary.py`) that has a template for adding a new method to our dictionary to facilitate the addition of new gradients for downstream finetuning applications.
 
+```latex
+$t_0 = 0.0005 /cdot l /cdot ID^2 / fl$ 
+```
+
 <p align="center">
   <img src="GradientFormalisms.png" alt="Gradient Info" width="75%">
 </p>
