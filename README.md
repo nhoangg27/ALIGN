@@ -93,9 +93,9 @@ docker cp <container_id>:<path_inside_container> <path_on_host>
 
 ### 📁 Folder Structure
 
-Your main project folder (e.g. `ALIGN/`) should look like this:
+Your main project folder (e.g. `ALIGN/`) should look like this
 
-- If you're cloning directly from GitHub
+- If you're cloning directly from GitHub:
 
 <pre lang="markdown"> <code> ALIGN/ 
   ├── .devcontainer/        ← From 'git_clone_installation' (see Setup Step 2)
@@ -103,7 +103,7 @@ Your main project folder (e.g. `ALIGN/`) should look like this:
   │ ├── Dockerfile       
   ├── ALIGN_Weights/         (see Setup Step 3)  </code> </pre>
 
-- If you download the repository and mount it to the docker container from your local machine
+- If you download the repository and mount it to the docker container from your local machine:
 
 <pre lang="markdown"> <code> ALIGN/ 
   ├── .devcontainer/        ← From 'local_mount_installation' (see Setup Step 2)
@@ -126,7 +126,7 @@ Alternatively, you may also choose to **download** and extract the repository ma
 Please note that installation steps slightly differ depending on whether you're cloning from GitHub or mounting the repository locally. Use the configuration files in `git_clone_installation/` or `local_mount_installation/` accordingly. Create a `.devcontainer/` folder inside the big `ALIGN/` directory with the following files:
 - `devcontainer.json` 
 - `Dockerfile`
-- `setup.sh` (optional, only if you're mounting from a local download)
+- `setup.sh` (only if you're mounting from a local download)
   
 #### 3. Prepare model weights
 
@@ -140,7 +140,7 @@ Sample RP and fused models that were pretrained for our study are freely availab
    
    ➜ `Dev Containers: Reopen in Container`
 
-   **<u>NOTE:</u>** if the environment is broken and you need to rebuild, select
+   ***NOTE:*** if the environment is broken and you need to rebuild, select
 
    ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`.
    
