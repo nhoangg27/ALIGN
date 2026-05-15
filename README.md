@@ -135,7 +135,9 @@ Download our model weights from XXXX and place them in an `ALIGN_Weights/` folde
 7. If it runs for an epoch and saves .pt files inside `checkpoints_HILIC/`, you know you’ve succeeded.
 
 # Data
-All data used in this study is publically available at the RepoRT github (https://github.com/michaelwitting/RepoRT/). **EDIT THIS FOR HUAN & LIT DATA** Those using this data should cite this work as follows:
+All in-house benchmarking datasets are publically available at **INSERT ZENODO LINK WHEN AVAILABLE**.
+
+All data used for pretraining in this study are publically available at the [RepoRT GitHub](https://github.com/michaelwitting/RepoRT/). Those using these data should cite this work as follows:
 
 ```bibtex
 @article{Kretschmer2024,
@@ -158,12 +160,19 @@ All data used in this study is publically available at the RepoRT github (https:
 
 All of our training libraries for this study can be directly obtained from their library, by utilizing the dataprocessing scripts outlined in the folder. These 
 scripts need their paths to be manually modified to received a "RepoRT-like" data structure. If you wish to adapt your gradient/LC method to our model, we highly recommend
-structuring your data like a RepoRT entry and apply our scripts to generate an entry in our method data dictionary.
+structuring your data like a RepoRT entry and apply our scripts to generate an entry in our method data dictionary. **NHI to check code for this**
 
-The pickle file (```/home/nhi/A-RT/A-RT_fused/sample_data/all_col_metadata_20260512.pickle```) contain processed column metada generated from RepoRT with the following headers, some of which (_e.g.,_ void volume or HSMB/Tanaka parameters) are calculated directly using RepoRT scripts:
+The pickle file (`all_col_metadata_20260512.pickle`) contain processed column metada generated from RepoRT with the following headers, some of which (_e.g.,_ void volume or HSMB/Tanaka parameters) are calculated directly using RepoRT scripts:
 ```python
 ['company_name', 'usp_code', 'col_length', 'col_innerdiam', 'col_part_size', 'temp', 'col_fl', 'col_dead', 'HPLC_type','A_solv', 'B_solv', 'time1', 'grad1', 'time2', 'grad2', 'time3', 'grad3', 'time4', 'grad4', 'A_pH', 'B_pH', 'A_start', 'A_end', 'B_start', 'B_end',  'eluent_A_formic', 'eluent_A_formic_unit', 'eluent_A_acetic', 'eluent_A_acetic_unit','eluent_A_trifluoroacetic', 'eluent_A_trifluoroacetic_unit','eluent_A_phosphor', 'eluent_A_phosphor_unit','eluent_A_nh4ac','eluent_A_nh4ac_unit', 'eluent_A_nh4form','eluent_A_nh4form_unit','eluent_A_nh4carb', 'eluent_A_nh4carb_unit','eluent_A_nh4bicarb','eluent_A_nh4bicarb_unit', 'eluent_A_nh4f','eluent_A_nh4f_unit','eluent_A_nh4oh', 'eluent_A_nh4oh_unit','eluent_A_trieth','eluent_A_trieth_unit','eluent_A_triprop','eluent_A_triprop_unit','eluent_A_tribut', 'eluent_A_tribut_unit','eluent_A_nndimethylhex', 'eluent_A_nndimethylhex_unit','eluent_A_medronic', 'eluent_A_medronic_unit','eluent_B_formic', 'eluent_B_formic_unit', 'eluent_B_acetic', 'eluent_B_acetic_unit','eluent_B_trifluoroacetic', 'eluent_B_trifluoroacetic_unit','eluent_B_phosphor', 'eluent_B_phosphor_unit','eluent_B_nh4ac','eluent_B_nh4ac_unit', 'eluent_B_nh4form','eluent_B_nh4form_unit','eluent_B_nh4carb', 'eluent_B_nh4carb_unit','eluent_B_nh4bicarb','eluent_B_nh4bicarb_unit', 'eluent_B_nh4f','eluent_B_nh4f_unit','eluent_B_nh4oh', 'eluent_B_nh4oh_unit','eluent_B_trieth','eluent_B_trieth_unit', 'eluent_B_triprop','eluent_B_triprop_unit','eluent_B_tribut', 'eluent_B_tribut_unit','eluent_B_nndimethylhex', 'eluent_B_nndimethylhex_unit','eluent_B_medronic', 'eluent_B_medronic_unit', 'kPB', 'alpha_CH2', 'alpha_T_O', 'alpha_C_P', 'alpha_B_P', 'alpha_B_P1', 'particle_size', 'pore_size', 'H', 'S_star', 'A', 'B', 'C_pH_28)', 'C_pH_7)', 'EB_ret_factor']
 ```
+
+# Custom Gradients
+Below is a visualization of how our models "see" the chromatographic gradients. Retention times collected in the corresponding method are shown as red dots, while inflection points for the gradient are shown in green. Several column parameters calculated from the RepoRT workflow are also displayed. We have built a script (`scripts/update_method_dictionary.py`) that has a template for adding a new method to our dictionary to facilitate the addition of new gradients for downstream finetuning applications.
+
+<p align="center">
+  <img src="ALIGN_logo_final.png" alt="ALIGN Logo" width="75%">
+</p>
 
 # Usage
 Sample data for generating 'RP specialist' and 'fused' models are found in the ```sample_data/``` folder and demonstrates the intended structure. RP specialist models have 64 attention heads, while fused models have 128.
@@ -182,7 +191,7 @@ bash ../../examples/property_prediction/RP.sh  # also, CCS.sh, DMS.sh, GC.sh, fu
 
 Models can then be evaluated using the corresponding scripts in ```graphormer/evaluate/```. The flag ```--save-dir``` will allow you to save predictions alongside method data and SMILES strings:
 ```bash
-bash ../../graphormer/evaluate_RP.sh
+bash ../../graphormer/evaluate_RP.sh  # also, evaluate_CCS.sh, evaluate_DMS.sh, evaluate_GC.sh, evaluate_fused.sh
 ```
 
 Pre-graph encoders are found in ```graphormer/modules/graphormer_layers.py```. Graph layers and MLPs are found in ```graphormer/models/```.
