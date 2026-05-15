@@ -58,7 +58,7 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 
 To take the headache out of environment management, we’ve provided a pre-configured Docker Image for ALIGN. We recommend using **VS Code Dev Containers**; it gives you a full graphical interface to interact with the containerized code and files just like a local project, all while maintaining full GPU support. For more details, you can consult the documentations on [Docker](https://docker-curriculum.com/) and [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers). 
 
-### 🧰 Prerequisites
+## 🧰 Prerequisites
 
 - [Docker](https://docs.docker.com/get-started/get-docker/)
 - [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
@@ -91,7 +91,7 @@ docker cp <path_to_local_file> <container_id>:<destination_directory_inside_cont
 docker cp <container_id>:<path_inside_container> <path_on_host>
 ```
 
-### 📁 Folder Structure
+## 📁 Folder Structure
 
 Your main project folder (e.g. `ALIGN/`) should look like this
 
@@ -113,26 +113,26 @@ Your main project folder (e.g. `ALIGN/`) should look like this
   ├── ALIGN-main/
   ├── ALIGN_Weights/         (see Setup Step 3)  </code> </pre>
 
-### 🚀 Setup Steps
+## 🚀 Setup Steps
 
-#### 1. Clone or download this repository
+### 1. Clone or download this repository
 
 You may choose to **clone** the repository automatically from GitHub via `git clone`. 
 
 Alternatively, you may also choose to **download** and extract the repository manually. If this is the case, place it inside `ALIGN/` for local mounting (here named `ALIGN-main/`) when we build the docker container.
 
-#### 2. Prepare the `.devcontainer` folder
+### 2. Prepare the `.devcontainer` folder
 
 Please note that installation steps slightly differ depending on whether you're cloning from GitHub or mounting the repository locally. Use the configuration files in `git_clone_installation/` or `local_mount_installation/` accordingly. Create a `.devcontainer/` folder inside the big `ALIGN/` directory with the following files:
 - `devcontainer.json` 
 - `Dockerfile`
 - `setup.sh` (only if you're mounting from a local download)
   
-#### 3. Prepare model weights
+### 3. Prepare model weights
 
 Sample RP and fused models that were pretrained for our study are freely available online at XXXXXXX. These can be used for model evaluation or for finetuning using the requisite scripts. Download our model weights and place them in an `ALIGN_Weights/` folder inside `ALIGN/`. If everything is installed correctly, there would be a bind mount for the weights to the container under `/workspace/align/model_weights/`.
 
-#### 4. Build container
+### 4. Build container
 
 1. In VS Code, install the **Dev Containers extension** if you haven't already.
 3. Open the `ALIGN/` folder in a **new window**.
@@ -140,9 +140,9 @@ Sample RP and fused models that were pretrained for our study are freely availab
    
    ➜ `Dev Containers: Reopen in Container`
 
-   ***NOTE:*** if the environment is broken and you need to rebuild, select
+   ***NOTE:*** if the environment is broken or if you simply want to rebuild to the latest version, select
 
-   ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`.
+   ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
    
 6. Once the container finishes building, run `bash setup.sh` to finish setting up the environment (if mounting locally). You may skip this step if you are cloning the repository.
 7. Navigate to the example directory and run the example script:
@@ -153,6 +153,67 @@ Sample RP and fused models that were pretrained for our study are freely availab
    ```
    
 8. If it runs for an epoch and saves .pt files inside `checkpoints_RP/`, you know you’ve succeeded.
+
+For more details on using ALIGN, see "Usage" below.
+
+# Usage
+
+## 🔍 Overview
+The repository is structured into distinct functional modules for data processing, training, and evaluation:
+- `examples/property_prediction/`: contains the primary scripts and data loaders for pre-training and fine-tuning models
+- `graphormer/evaluate/`: contains specialized scripts and data loaders for model evaluation
+- `sample_data/`: includes template datasets in .csv format
+
+The pipeline automatically infers the data source based on the executed script name. To run the pipeline with a custom dataset, update the data pathways directly within the relevant data loader:
+1. Navigate to the targeted chromatography mode folder under the loader directory (_e.g._, CCS, RP).
+2. Open `*_loader_train.py` and update the `DATA_PATH` variable to point to your data file.
+
+## 🛠️ Hyperparameters & Configuration Flags
+Model training and evaluation are executed via Bash scripts (`.sh`). For a complete discussion on recommended hyperparameter configurations, refer to Supplementary Note 6 in the Supplementary Information.
+
+Key command-line arguments include:
+- `--user-data-dir` and `--dataset-name`: point to the corresponding dataloader and dataset registered in `*_loader_train.py`
+- `--encoder-attention-heads`: adjust to 64 for an RP specialist model and 128 for a fused model
+- `--pretrained-model-name` and `--finetune_from_model`: paths to model weights
+- `--save-dir`: saves the best performing epoch (optimized on MAE) and the last epoch checkpoint to the specified directory as `checkpoint_best.pt` and `checkpoint_last.pt`, respectively
+- `--save-path`: saves predictions alongside method data, SMILES strings, and uncertainty values as `.csv` files when evaluating models
+
+## ❄️ Freezing Layers
+The `--freeze-level` argument operates on the graph encoder and multi-layer perceptron (MLP) blocks. 
+- **Negative freeze-level**: freeze layers of the _graph encoder_ starting from the front (_e.g._, `-4` freezes the first 4 layers)
+- **Positive freeze level**: freeze layers of the _MLP_ starting from the front (_e.g._, `2` freezes the first two layers of the MLP)
+
+There are additional flags for freezing the atomic feature encoders and graph feature encoders.
+
+## 🤖 Execution Scripts
+
+### 🏗️ Pretraining
+To fully pretrain a model from scratch:
+
+```bash
+cd examples/property_prediction
+bash pretrain_RP.sh  # alternative: pretrain_fused.sh
+```
+### 🎯 Finetuning
+To finetune a pre-existing model on a specific chromatographic mode:
+
+```bash
+cd examples/property_prediction
+bash RP.sh  # alternatives: CCS.sh, DMS.sh, GC.sh, fused.sh
+```
+
+### 📊 Evaluation
+To evaluate trained checkpoints, utilize the corresponding evaluation scripts located in the model evaluation directory:
+
+```bash
+cd graphormer/evaluate
+bash evaluate_RP.sh  # alternative: evaluate_CCS.sh, evaluate_DMS.sh, evaluate_GC.sh, evaluate_fused.sh
+```
+
+## 🧠 Model Architecture
+For users looking to modify underlying model layers, the core components are located at:
+- Pre-graph encoders: `graphormer/modules/graphormer_layers.py`
+- Graph layers and MLPs: `graphormer/models/`
 
 # Data and Chromatographic Gradients
 All in-house benchmarking datasets in this study are publically available at **INSERT ZENODO LINK WHEN AVAILABLE**.
@@ -195,34 +256,6 @@ To support downstream finetuning, we have provided a utility script (`scripts/up
 ```python
 ['company_name', 'usp_code', 'col_length', 'col_innerdiam', 'col_part_size', 'temp', 'col_fl', 'col_dead', 'HPLC_type','A_solv', 'B_solv', 'time1', 'grad1', 'time2', 'grad2', 'time3', 'grad3', 'time4', 'grad4', 'A_pH', 'B_pH', 'A_start', 'A_end', 'B_start', 'B_end',  'eluent_A_formic', 'eluent_A_formic_unit', 'eluent_A_acetic', 'eluent_A_acetic_unit','eluent_A_trifluoroacetic', 'eluent_A_trifluoroacetic_unit','eluent_A_phosphor', 'eluent_A_phosphor_unit','eluent_A_nh4ac','eluent_A_nh4ac_unit', 'eluent_A_nh4form','eluent_A_nh4form_unit','eluent_A_nh4carb', 'eluent_A_nh4carb_unit','eluent_A_nh4bicarb','eluent_A_nh4bicarb_unit', 'eluent_A_nh4f','eluent_A_nh4f_unit','eluent_A_nh4oh', 'eluent_A_nh4oh_unit','eluent_A_trieth','eluent_A_trieth_unit','eluent_A_triprop','eluent_A_triprop_unit','eluent_A_tribut', 'eluent_A_tribut_unit','eluent_A_nndimethylhex', 'eluent_A_nndimethylhex_unit','eluent_A_medronic', 'eluent_A_medronic_unit','eluent_B_formic', 'eluent_B_formic_unit', 'eluent_B_acetic', 'eluent_B_acetic_unit','eluent_B_trifluoroacetic', 'eluent_B_trifluoroacetic_unit','eluent_B_phosphor', 'eluent_B_phosphor_unit','eluent_B_nh4ac','eluent_B_nh4ac_unit', 'eluent_B_nh4form','eluent_B_nh4form_unit','eluent_B_nh4carb', 'eluent_B_nh4carb_unit','eluent_B_nh4bicarb','eluent_B_nh4bicarb_unit', 'eluent_B_nh4f','eluent_B_nh4f_unit','eluent_B_nh4oh', 'eluent_B_nh4oh_unit','eluent_B_trieth','eluent_B_trieth_unit', 'eluent_B_triprop','eluent_B_triprop_unit','eluent_B_tribut', 'eluent_B_tribut_unit','eluent_B_nndimethylhex', 'eluent_B_nndimethylhex_unit','eluent_B_medronic', 'eluent_B_medronic_unit', 'kPB', 'alpha_CH2', 'alpha_T_O', 'alpha_C_P', 'alpha_B_P', 'alpha_B_P1', 'particle_size', 'pore_size', 'H', 'S_star', 'A', 'B', 'C_pH_28)', 'C_pH_7)', 'EB_ret_factor']
 ```
-
-
-# Usage
-Sample data for generating 'RP specialist' and 'fused' models are found in the `sample_data/` folder and demonstrates the intended structure. RP specialist models have 64 attention heads, while fused models have 128.
-
-The `example/property_prediction/` folder contains scripts and dataloaders to a) pre-train a model and b) finetune a pre-existing model. If you want to change the data source, you will need to edit code in the dataloader. Details for recommended hyperparameters are found in the Supplementary Information XXXXXXX.
-
-To fully pretrain a model, use the following script. Adjust `--encoder-attention-heads` to 64 for an RP specialist model and 128 for a fused model:
-
-```bash
-bash ../../examples/property_prediction/pretrain_fused.sh  # also, pretrain_RP.sh
-```
-
-To finetune a model, use the following script. Ensure that you have the correct paths for `--pretrained-model-name` and `--finetune_from_model`. The flag `--save-dir` allows you to save the best performing model (based on MAE) and the last model trained for evaluation (`checkpoint_best.pt` and `checkpoint_last.pt`, respectively):
-
-```bash
-bash ../../examples/property_prediction/RP.sh  # also, CCS.sh, DMS.sh, GC.sh, fused.sh
-```
-
-Models from the checkpoint folder can then be evaluated using the corresponding scripts in `graphormer/evaluate/`. The flag `--save-path` will allow you to save predictions alongside method data, SMILES strings, and our uncertainty metric:
-
-```bash
-bash ../../graphormer/evaluate_RP.sh  # also, evaluate_CCS.sh, evaluate_DMS.sh, evaluate_GC.sh, evaluate_fused.sh
-```
-
-Pre-graph encoders are found in `graphormer/modules/graphormer_layers.py`. Graph layers and MLPs are found in `graphormer/models/`.
-
-There are command line tools available for freezing layers of the graph encoder of MLP (`--freeze-level`). A negative freeze-level will freeze layers of the graph encoder starting from the front (-4 freezes the first 4 layers of the graph encoder). A positive freeze level will freeze layers in the MLP starting from the front (2 will freeze the first two layers of the MLP). There are additional flags for freezing the atomic feature encoders and graph feature encoders.
 
 # Common Errors
 
