@@ -55,14 +55,13 @@ url={https://openreview.net/forum?id=OeWooOxFwDa}
 ```
 
 # Installation
-
 To take the headache out of environment management, we’ve provided a pre-configured Docker Image for ALIGN. We recommend using **VS Code Dev Containers**; it gives you a full graphical interface to interact with the containerized code and files just like a local project, all while maintaining full GPU support. For more details, you can consult the documentations on [Docker](https://docker-curriculum.com/) and [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers). 
 
 ## 🧰 Prerequisites
-
+To install and run ALIGN, you will need the following:
 - [Docker](https://docs.docker.com/get-started/get-docker/)
 - [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
-- [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 - Access to a machine with [NVIDIA GPU](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) and [drivers](https://www.nvidia.com/Download/index.aspx) properly installed
 
 You can verify Docker and NVIDIA installation on **GPU** via the following commands:
