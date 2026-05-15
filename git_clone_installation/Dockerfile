@@ -71,10 +71,9 @@ RUN pip install -e . && \
 # Return to main workspace
 WORKDIR /workspace/align
 
-# --- ADD THE SYMLINK HERE ---
+# Sym link for model weights
 RUN mkdir -p /opt/align && \
     ln -sf /workspace/align/model_weights /opt/align/model_weights
-# ----------------------------
 
 # Environment variable for model weights
 ENV MODEL_WEIGHTS_PATH=/workspace/align/model_weights

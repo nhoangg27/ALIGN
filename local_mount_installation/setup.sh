@@ -22,7 +22,7 @@ if [ -d "$FAIRSEQ_DIR" ]; then
 
   echo "Installing fairseq into Conda environment (Standard Install)..."
   # Standard install copies the files to site-packages, preventing shadowing
-  pip install .
+  pip install -e .
 else
   echo "ERROR: fairseq directory not found at $FAIRSEQ_DIR"
   exit 1

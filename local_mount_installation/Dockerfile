@@ -33,25 +33,22 @@ RUN conda create -n align python=3.9.18 -y
 ENV CONDA_DEFAULT_ENV=align
 ENV PATH="/opt/conda/envs/align/bin:$PATH"
 
-# Cache-busting ARG: update this value manually when you want to re-download the repository
+# Cache-busting ARG
 ARG CACHEBUST=1
 
 # Downgrade pip to avoid incompatibilities
 RUN pip install --upgrade "pip<24.1"
 
-# Copy setup script
+# Copy setup.sh script
 COPY .devcontainer/setup.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/setup.sh
 
-# Install dependencies that don't depend on the code
+# Install heavy dependencies
 RUN pip install dgl==1.1.3+${CUDA} -f https://data.dgl.ai/wheels/${CUDA}/repo.html
 RUN pip install torch-geometric==2.4.0
 RUN pip install torch-scatter torch-sparse -f https://data.pyg.org/whl/torch-2.1.0+${CUDA}.html
-
-# Install PyTorch with CUDA
 RUN pip install torch==2.1.0+${CUDA} torchvision==0.16.0+${CUDA} --index-url https://download.pytorch.org/whl/${CUDA}
 
-# Install other Python dependencies
 RUN pip install \
     ogb==1.3.2 \
     matplotlib \
@@ -62,11 +59,11 @@ RUN pip install \
     rdkit==2023.9.1\
     Cython==3.0.4
 
-# Install Fairseq from source (required for Graphormer)
+# Install the internal fairseq subdirectory
 RUN git clone https://github.com/facebookresearch/fairseq.git /tmp/fairseq && \
     cd /tmp/fairseq && \
     git checkout v0.12.2 && \
-    pip install . && \
+    pip install -e . && \
     python setup.py build_ext --inplace
 
 # Environment variable for model weights

@@ -2,7 +2,10 @@
   "name": "align",
   "build": {
     "dockerfile": "Dockerfile",
-    "context": ".."
+    "context": "..",
+    "args": {
+      "CACHEBUST": "1"
+    }
   },
   "runArgs": [
     "--gpus=all",
