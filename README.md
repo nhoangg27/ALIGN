@@ -121,12 +121,13 @@ Download our model weights from XXXX and place them in an `ALIGN_Weights/` folde
 
 #### 4. Open Container in VS Code
 
-1. Open VS Code.
-2. Install the **Dev Containers extension** if you haven't already.
-3. Open the `ALIGN/` folder in a **new VS Code window**.
+1. In VS Code, install the **Dev Containers extension** if you haven't already.
+3. Open the `ALIGN/` folder in a **new window**.
 4. Press `F1` and select:
    
-   ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
+   ➜ `Dev Containers: Reopen in Container`
+
+   **NOTE:** If the environment is broken and you need to rebuild, select `Dev Containers: Rebuild Container without Cache and Reopen in Container`.
    
 6. Once the container finishes building, run `bash setup.sh` to finish setting up the environment (if mounting locally).
 7. Navigate to the example directory and run the example script:
