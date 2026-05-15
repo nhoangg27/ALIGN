@@ -22,6 +22,7 @@ col_dead = 0.8268749999999999  ## calculated by RepoRT, col_dead = 0.0005 * col_
 HPLC_type = 'HILIC'
 A_solv = 'acn'
 B_solv = 'h2o'
+
 ## Gradient inflection points
 time1 = 2.0
 grad1 = 0.0
@@ -37,7 +38,8 @@ A_start = 100
 A_end = 100
 B_start = 0
 B_end = 0
-## Additive concentrations and units (see re)
+
+## Additive concentrations and units (see RepoRT)
 eluent_A_formic = 0.1
 eluent_A_formic_unit = '%'
 eluent_A_acetic = 0
@@ -107,7 +109,7 @@ alpha_C_P = 0
 alpha_B_P = 0
 alpha_B_P1 = 0
 
-## HSMB Parameters (calcualted by RepoRT)
+## HSMB Parameters (calculated by RepoRT)
 particle_size = 0
 pore_size = 0
 H = 0
@@ -144,6 +146,3 @@ with open(output_path, 'rb') as f:
     data = pickle.load(f)
 
 print(data.keys())
-    
-
-
