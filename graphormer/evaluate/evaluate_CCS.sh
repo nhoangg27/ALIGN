@@ -22,4 +22,4 @@ python evaluate_CCS.py \
     --num-classes 1 \
     --save-dir "$PROJECT_ROOT/checkpoints_CCS" \
     --split train \
-    # --save-path "$PROJECT_ROOT/results/CCS_sample.csv" \
+    --save-path "$PROJECT_ROOT/results/CCS_sample.csv"
