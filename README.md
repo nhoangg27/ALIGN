@@ -303,11 +303,15 @@ index = 'MY_RP_METHOD'
 ### 5. Edit the finetuning script
 Open the bash script (`examples/property_prediction/RP.sh`) and check the pretrained-weight arguments. For RP finetuning, the model is `RP_specialist.pt`. Make sure the script points to this checkpoint, or to the pretrained checkpoint you want to use:
 
-```--finetune-from-model /workspace/align/model_weights/RP_specialist.pt```
+```bash
+--finetune-from-model /workspace/align/model_weights/RP_specialist.pt
+```
 
 Set `--save-dir` to the directory where you want the finetuned weights to be saved:
 
-```--save-dir "$PROJECT_ROOT/checkpoints_RP"```
+```bash
+--save-dir "$PROJECT_ROOT/checkpoints_RP"
+```
 
 After finetuning, the folder should contain:
 
@@ -345,15 +349,21 @@ If the setup is correct, training will begin and checkpoints will be saved to th
 ### 7. Evaluate the finetuned model
 After finetuning, open the corresponding evaluation script:
 
-```graphormer/evaluate/evaluate_RP.sh```
+```bash
+graphormer/evaluate/evaluate_RP.sh
+```
 
 Set `--save-dir` to the directory containing the finetuned weights:
 
-```--save-dir "$PROJECT_ROOT/checkpoints_RP"```
+```bash
+--save-dir "$PROJECT_ROOT/checkpoints_RP"
+```
 
 Set `--save-path` to the directory where you want prediction files to be saved:
 
-```--save-path "$PROJECT_ROOT/results/RP_sample.csv"```
+```bash
+--save-path "$PROJECT_ROOT/results/RP_sample.csv"
+```
 
 Then run:
 
