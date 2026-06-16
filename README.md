@@ -118,11 +118,13 @@ Your main project folder (e.g. `ALIGN/`) should look like this
 
 You may choose to **clone** the repository automatically from GitHub via `git clone`. 
 
-Alternatively, you may also choose to **download** and extract the repository manually. If this is the case, place it inside `ALIGN/` for local mounting (here named `ALIGN-main/`) when we build the docker container.
+Alternatively, you may **download** and extract the repository manually. If this is the case, place it inside `ALIGN/` for local mounting (here named `ALIGN-main/`) when we build the docker container.
 
 ### 2. Prepare the `.devcontainer` folder
 
-Please note that installation steps slightly differ depending on whether you're cloning from GitHub or mounting the repository locally. Use the configuration files in `git_clone_installation/` or `local_mount_installation/` accordingly. Create a `.devcontainer/` folder inside the big `ALIGN/` directory with the following files:
+Please note that installation steps slightly differ depending on whether you're cloning from GitHub or mounting the repository locally. Use the configuration files in `git_clone_installation/` or `local_mount_installation/` accordingly. 
+
+Create a `.devcontainer/` folder inside the big `ALIGN/` directory with the following files:
 - `devcontainer.json` 
 - `Dockerfile`
 - `setup.sh` (only if you're mounting from a local download)
@@ -134,8 +136,8 @@ Sample RP and fused models that were pretrained for our study are freely availab
 ### 4. Build container
 
 1. In VS Code, install the **Dev Containers extension** if you haven't already.
-3. Open the `ALIGN/` folder in a **new window**.
-4. Press `F1` and select
+2. Open the `ALIGN/` folder in a **new window**.
+3. Press `F1` and select
    
    ➜ `Dev Containers: Reopen in Container`
 
@@ -143,42 +145,58 @@ Sample RP and fused models that were pretrained for our study are freely availab
 
    ➜ `Dev Containers: Rebuild Container without Cache and Reopen in Container`
    
-6. Once the container finishes building, run `bash setup.sh` to finish setting up the environment (if mounting locally). You may skip this step if you are cloning the repository.
-7. To test whether the installation is working properly, navigate to the example directory and execute:
+4. Once the container finishes building, run `bash setup.sh` to finish setting up the environment (if mounting locally). You may skip this step if you are cloning the repository.
+5. To test whether the installation is working properly, navigate to the example directory and execute:
    
    ```bash
    cd examples/property_prediction
    bash RP.sh
    ```
    
-8. If it runs for an epoch and saves `.pt` files inside `checkpoints_RP/`, you know you’ve succeeded.
+6. If it runs for an epoch and saves `.pt` files inside `checkpoints_RP/`, you know you’ve succeeded.
 
 # Usage
 
 ## 🔍 Overview
+The primary use case of ALIGN is to **finetune a pretrained RT model on a user-provided chromatographic dataset**. The pipeline automatically infers the data source based on the executed script name, and users only need to edit the relevant loader file and bash script for their desired mode.
+
 The repository is structured into distinct functional modules for data processing, training, and evaluation:
-- `examples/property_prediction/`: contains the primary scripts and data loaders for pre-training and fine-tuning models
-- `graphormer/evaluate/`: contains specialized scripts and data loaders for model evaluation
+- `examples/property_prediction/`: contains the primary scripts and data loaders for pretraining and finetuning models
+- `graphormer/evaluate/`: contains  scripts and data loaders for model evaluation
 - `sample_data/`: includes template datasets in `.csv` format
 
-The pipeline automatically infers the data source based on the executed script name. To run the pipeline with a custom dataset, update the data pathways directly within the relevant data loader:
+For a custom dataset, update the data pathways directly within the relevant data loader:
 1. Navigate to the targeted chromatography mode folder `*_loader` (_e.g._, CCS, RP) in either `examples/property_prediction/` or `graphormer/evaluate/`.
 2. Open `*_loader_train.py` and update the `DATA_PATH` variable to point to your data file.
 
 ## 🛠️ Hyperparameters & Configuration Flags
-Model training and evaluation are executed via bash scripts (`.sh`). For a complete discussion on recommended hyperparameter configurations, refer to Supplementary Note 6 in the Supplementary Information.
+Model training, finetuning, and evaluation are executed through bash scripts (`.sh`). For a complete discussion on recommended hyperparameter configurations, refer to Supplementary Note 6 in the Supplementary Information.
 
 Key command-line arguments include:
-- `--user-data-dir` and `--dataset-name`: point to the corresponding dataloader and dataset registered in `*_loader_train.py`
-- `--encoder-attention-heads`: adjust to 64 for an RP specialist model and 128 for a fused model
-- `--pretrained-model-name` and `--finetune_from_model`: paths to model weights
-- `--save-dir`: saves the best performing epoch (optimized on MAE) and the last epoch checkpoint to the specified directory as `checkpoint_best.pt` and `checkpoint_last.pt`, respectively
-- `--save-path`: saves predictions alongside method data, SMILES strings, and uncertainty values as `.csv` files when evaluating models
+- `--user-data-dir`: points to the folder containing the relevant data loader
+- `--dataset-name`: point to the dataset registered in the corresponding loader
+- `--encoder-attention-heads`: adjust to `64` for an RP specialist model and `128` for a fused model
+- `--save-dir`: directory where the best performing epoch (optimized on MAE) and the last epoch checkpoint are saved as `checkpoint_best.pt` and `checkpoint_last.pt`, respectively
+- `--save-path`: directory where predictions alongside method data, SMILES strings, and uncertainty values are saved as `.csv` files during evaluation
+- `--warmup-updates`: number of optimization steps used to gradually increase the learning rate at the start of training
+- `--total-num-update`: total number of optimization steps
+- `--lr`: learning rate
+- `--freeze-level`: controls which model layers are frozen during finetuning
+
+The total number of update steps and warmup steps were calculated as:
+
+$$\text{total number of updates} = \frac{\text{number of training examples} \; \times \; \text{number of epochs}}{\text{batch size}}$$ 
+
+$$\text{warmup updates} = 0.15 \; \times \; \text{total number of updates}$$
+
+For finetuning only, the script should also include pretrained-weight arguments such as `--pretrained-model-name` and `--finetune-from-model`. For training from scratch, these arguments are not used.
 
 ## ❄️ Freezing Layers
 The `--freeze-level` argument operates on the graph encoder and multi-layer perceptron (MLP) blocks. 
 - **Negative freeze-level**: freeze layers of the _graph encoder_ starting from the front (_e.g._, `-4` freezes the first 4 layers)
 - **Positive freeze level**: freeze layers of the _MLP_ starting from the front (_e.g._, `2` freezes the first two layers of the MLP)
+
+As a general rule, when fewer layers are frozen, use a more conservative learning rate because more pretrained parameters are being updated. When more layers are frozen, slightly higher learning rates may be tolerated because fewer parameters are trainable. 
 
 Additional flags are available for independently freezing the atomic feature encoders and graph feature encoders.
 
@@ -192,21 +210,159 @@ cd examples/property_prediction
 bash pretrain_RP.sh  # alternative: pretrain_fused.sh
 ```
 
+Training from scratch does not use `--pretrained-model-name` or `--finetune-from-model`, because the model is not initialized from an existing checkpoint.
+
 ### 🎯 Finetuning
-To finetune a pre-existing model on a specific chromatographic mode:
+To finetune a pretrained model on a specific chromatographic mode:
 
 ```bash
 cd examples/property_prediction
 bash RP.sh  # alternatives: CCS.sh, DMS.sh, GC.sh, fused.sh
 ```
 
+The procedure is the same across modes. Use the script and loader folder corresponding to your desired mode. See step-by-step example below on finetuning ALIGN.
+
 ### 📊 Evaluation
-To evaluate trained checkpoints, utilize the corresponding evaluation scripts located in the model evaluation directory:
+To evaluate trained checkpoints, use the corresponding evaluation scripts in the model evaluation directory:
 
 ```bash
 cd graphormer/evaluate
 bash evaluate_RP.sh  # alternatives: evaluate_CCS.sh, evaluate_DMS.sh, evaluate_GC.sh, evaluate_fused.sh
 ```
+
+During evaluation, set `--save-dir` to the directory where the weights were saved. User can choose where to output the prediction `.csv` files by editing `--save-path`.
+
+## Step-by-Step Finetuning Example
+This example shows how to finetune an RP model. The same procedure applies to other chromatographic modes, but users should edit the matching loader and bash script for that mode.
+
+### 1. Prepare your input data
+Your finetuning `.csv` file should contain at least two columns: `SMILES` and `RT`. The default loader assumes that the first column contains SMILES strings and the second column contains RTs. Python uses zero-based indexing, so `i[0]` is column 1, `i[1]` is column 2, and so on.
+
+The relevant section of the loader looks like this:
+
+```python
+for i in tqdm(x):
+    
+    sm = str(i[0]).replace("Q", "#") ## Hashtags break some of our preprocessing scripts so we replace them with Qs to make life easier 
+    mol = Chem.MolFromSmiles(sm)
+    rt = torch.tensor([float(i[1])]) / 1000
+```
+
+If SMILES are in column 3 and RTs are in column 5, use:
+
+```python
+for i in tqdm(x):
+    
+    sm = str(i[2]).replace("Q", "#") ## Hashtags break some of our preprocessing scripts so we replace them with Qs to make life easier 
+    mol = Chem.MolFromSmiles(sm)
+    rt = torch.tensor([float(i[4])]) / 1000
+```
+
+### 2. Edit the training loader
+Navigate to `examples/property_prediction/RP_loader` and open `RP_loader_train.py`. The example loaders are set up to work with the provided sample data. To use your own data, update `DATA_PATH` using a relative path:
+
+```python
+DATA_PATH = PROJECT_ROOT / "sample_data" / "my_finetuning_data.csv"
+```
+
+or an absolute path:
+
+```python
+DATA_PATH = Path("/workspace/align/my_data/my_finetuning_data.csv")
+```
+
+### 3. Skip headers if your data file has column names
+If your `.csv` file has headers, open `featurizing_helpers.py` inside the same loader folder and find the `import_data` function:
+
+```python
+def import_data(file):
+    with open(file,'r',  encoding='latin-1') as rf:
+        r=csv.reader(rf)
+        # next(r)
+        data=[]
+        for row in r:
+            data.append(row)
+        return data
+```
+
+Uncomment `next(r)` to skip the header row. If your file does not have headers, leave `next(r)` commented out.
+
+### 4. Set the method dictionary and method name
+ALIGN uses chromatographic metadata from a method dictionary. If you generated your own method dictionary (_e.g._, using `update_method_dictionary.py`), update `DICT_PATH` inside the loader so it points to your `.pickle` file:
+
+```python
+DICT_PATH = PROJECT_ROOT / "sample_data" / "my_updated_method_dictionary.pickle"
+```
+
+Also change the method index to match the method name stored in your dictionary. For example:
+
+```python
+index = 'MY_RP_METHOD'
+```
+
+### 5. Edit the finetuning script
+Open the bash script (`examples/property_prediction/RP.sh`) and check the pretrained-weight arguments. For RP finetuning, the model is `RP_specialist.pt`. Make sure the script points to this checkpoint, or to the pretrained checkpoint you want to use:
+
+```--finetune-from-model /workspace/align/model_weights/RP_specialist.pt```
+
+Set `--save-dir` to the directory where you want the finetuned weights to be saved:
+
+```--save-dir "$PROJECT_ROOT/checkpoints_RP"```
+
+After finetuning, the folder should contain:
+
+```bash
+checkpoint_best.pt
+checkpoint_last.pt
+```
+
+Adjust the training duration based on the dataset size:
+
+```bash
+--warmup-updates 15
+--total-num-update 100
+```
+
+Adjust learning rate and freeze levels as needed:
+
+```bash
+--freeze-level -4
+--lr 2e-4
+```
+
+If the model underfits, you can try freezing fewer layers by moving `--freeze-level` closer to 0, such as `--freeze-level -2` or `--freeze-level 0`. When fewer layers are frozen, use caution with the learning rate because more pretrained parameters are being updated. If training becomes unstable or validation performance worsens, lower the learning rate.
+
+### 6. Finetune the model
+From inside the container, run:
+
+```bash
+cd examples/property_prediction
+bash RP.sh
+```
+
+If the setup is correct, training will begin and checkpoints will be saved to the directory specified by `--save-dir`.
+
+### 7. Evaluate the finetuned model
+After finetuning, open the corresponding evaluation script:
+
+```graphormer/evaluate/evaluate_RP.sh```
+
+Set `--save-dir` to the directory containing the finetuned weights:
+
+```--save-dir "$PROJECT_ROOT/checkpoints_RP"```
+
+Set `--save-path` to the directory where you want prediction files to be saved:
+
+```--save-path "$PROJECT_ROOT/RP_results"```
+
+Then run:
+
+```bash
+cd graphormer/evaluate
+bash evaluate_RP.sh
+```
+
+The evaluation script saves predictions, method information, SMILES strings, and uncertainty values as `.csv` files in the directory specified by `--save-path`.
 
 ## 🧠 Model Architecture
 For users looking to modify underlying model layers, the core components are located at:
@@ -257,9 +413,27 @@ To support downstream finetuning, we have provided a utility script (`scripts/up
 
 # Common Errors
 
-"Segmentation Fault... Core Dumped" may indicate that you have installed the incorrect version of [PyTorch Geometric](https://data.pyg.org/whl/). This can be further tested by checking the package import (_e.g._, `from pytorch_geometric.data import data`)
+## Segmentation Fault or Core Dump
+A "Segmentation Fault... Core Dumped" may indicate that you have installed the incorrect version of [PyTorch Geometric](https://data.pyg.org/whl/). This can be further tested by checking the package import (_e.g._, `from pytorch_geometric.data import data`)
 
-If gradients explode in training, it is recommended that you lower learning rates or increase the `fp16-scale-tolerance` value in the bash script
+## Exploding Gradients
+If gradients explode in training, it is recommended that you lower learning rates or increase the `fp16-scale-tolerance` value in the bash script.
+
+## Data File Not Found
+If the loader cannot find your data file, check that:
+1. `DATA_PATH` points to the correct file/method dictionary
+2. The file is accessible inside the Docker container
+3. The path uses the container path, not the path from your local computer
+4. The file extension and filename match exactly
+
+## Method Name Not Found
+If the loader cannot find the chromatographic method, check that:
+1. `DICT_PATH` points to the correct method dictionary
+2. The `index` value exactly matches a method name in the dictionary
+3. Any newly added method was successfully saved to the `.pickle` file
+
+## Header of Column-Index Errors
+If the loader fails when reading your `.csv` file, check whether your file has a header. If it does, uncomment `next(r)` in `import_data`. Also, confirm that the SMILES and RT column indices match the structure of your file.
 
 # Contact
 
