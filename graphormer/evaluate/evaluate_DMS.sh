@@ -22,4 +22,4 @@ python evaluate_DMS.py \
     --num-classes 1 \
     --save-dir "$PROJECT_ROOT/checkpoints_DMS" \
     --split train \
-    # --save-path "$PROJECT_ROOT/results/DMS_sample.csv" \
+    --save-path "$PROJECT_ROOT/results/DMS_sample.csv"
