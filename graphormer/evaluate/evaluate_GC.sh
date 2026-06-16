@@ -22,4 +22,4 @@ python evaluate_GC.py \
     --num-classes 1 \
     --save-dir "$PROJECT_ROOT/checkpoints_GC" \
     --split train \
-    # --save-path "$PROJECT_ROOT/results/GC_sample.csv" \
+    --save-path "$PROJECT_ROOT/results/GC_sample.csv"
