@@ -180,14 +180,14 @@ Key command-line arguments include:
 - `--total-num-update`: total number of optimization steps
 - `--lr`: learning rate
 - `--freeze-level`: controls which model layers are frozen during finetuning
-- - `--save-dir`: directory where the best performing epoch (optimized on MAE) and the last epoch checkpoint are saved as `checkpoint_best.pt` and `checkpoint_last.pt`, respectively
+- `--save-dir`: directory where the best performing epoch (optimized on MAE) and the last epoch checkpoint are saved as `checkpoint_best.pt` and `checkpoint_last.pt`, respectively
 - `--save-path`: directory where predictions alongside method data, SMILES strings, and uncertainty values are saved as `.csv` files during evaluation
 
 The total number of update steps and warmup steps were calculated as:
 
-$$\text{total number of updates} = \frac{\text{number of training examples} \; \times \; \text{number of epochs}}{\text{batch size}}$$ 
+$$\text{total number of updates} = \frac{\text{number of training examples} ~\times ~\text{number of epochs}}{\text{batch size}}$$ 
 
-$$\text{warmup updates} = 0.15 \; \times \; \text{total number of updates}$$
+$$\text{warmup updates} = 0.15 ~\times ~\text{total number of updates}$$
 
 For finetuning only, the script should also include pretrained-weight arguments such as `--pretrained-model-name` and `--finetune-from-model`. For training from scratch, these arguments are not used.
 
