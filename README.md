@@ -176,12 +176,12 @@ Key command-line arguments include:
 - `--user-data-dir`: points to the folder containing the relevant data loader
 - `--dataset-name`: point to the dataset registered in the corresponding loader
 - `--encoder-attention-heads`: adjust to `64` for an RP specialist model and `128` for a fused model
-- `--save-dir`: directory where the best performing epoch (optimized on MAE) and the last epoch checkpoint are saved as `checkpoint_best.pt` and `checkpoint_last.pt`, respectively
-- `--save-path`: directory where predictions alongside method data, SMILES strings, and uncertainty values are saved as `.csv` files during evaluation
 - `--warmup-updates`: number of optimization steps used to gradually increase the learning rate at the start of training
 - `--total-num-update`: total number of optimization steps
 - `--lr`: learning rate
 - `--freeze-level`: controls which model layers are frozen during finetuning
+- - `--save-dir`: directory where the best performing epoch (optimized on MAE) and the last epoch checkpoint are saved as `checkpoint_best.pt` and `checkpoint_last.pt`, respectively
+- `--save-path`: directory where predictions alongside method data, SMILES strings, and uncertainty values are saved as `.csv` files during evaluation
 
 The total number of update steps and warmup steps were calculated as:
 
