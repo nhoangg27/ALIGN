@@ -266,5 +266,11 @@ If gradients explode in training, it is recommended that you lower learning rate
 If you require further assistance with developing your own model or have any questions about its implementaton, the authors can be contacted at 
 
 - cmkstien@uwaterloo.ca
-- scott.hopkins@uwaterloo.ca 
+- scott.hopkins@uwaterloo.ca
+
+# License
+
+ALIGN is licensed under the GNU General Public License v3.0. See the `LICENSE` file for the full license text and `LICENSE_NOTICE.md` for a project-specific summary.
+
+If you use ALIGN in academic work, please cite the publications listed above.
 
