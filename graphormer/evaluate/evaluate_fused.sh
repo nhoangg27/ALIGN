@@ -22,4 +22,4 @@ python evaluate_RT.py \
     --num-classes 1 \
     --save-dir "$PROJECT_ROOT/checkpoints_fused" \
     --split train \
-    # --save-path "$PROJECT_ROOT/results/fused_sample.csv" \
+    --save-path "$PROJECT_ROOT/results/fused_sample.csv"
