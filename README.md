@@ -424,7 +424,7 @@ To support downstream finetuning, we have provided a utility script (`scripts/up
 # Common Errors
 
 ## Segmentation Fault or Core Dump
-A "Segmentation Fault... Core Dumped" may indicate that you have installed the incorrect version of [PyTorch Geometric](https://data.pyg.org/whl/). This can be further tested by checking the package import (_e.g._, `from pytorch_geometric.data import data`)
+A "Segmentation Fault... Core Dumped" may indicate that you have installed the incorrect version of [PyTorch Geometric](https://data.pyg.org/whl/). This can be further tested by checking the package import (_e.g._, `from pytorch_geometric.data import data`).
 
 ## Exploding Gradients
 If gradients explode in training, it is recommended that you lower learning rates or increase the `fp16-scale-tolerance` value in the bash script.
