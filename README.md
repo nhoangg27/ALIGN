@@ -353,7 +353,7 @@ Set `--save-dir` to the directory containing the finetuned weights:
 
 Set `--save-path` to the directory where you want prediction files to be saved:
 
-```--save-path "$PROJECT_ROOT/RP_results"```
+```--save-path "$PROJECT_ROOT/results/RP_sample.csv"```
 
 Then run:
 
