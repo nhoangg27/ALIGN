@@ -177,6 +177,11 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 base, ext = os.path.splitext(save)
                 save = f"{base}_{name}_predictions{ext}"
 
+                # Create output directory if it does not already exist
+                save_dir = os.path.dirname(save)
+                if save_dir:
+                    os.makedirs(save_dir, exist_ok=True)
+
                 with open(save, 'w', newline='') as file:
                     writer = csv.writer(file)
                     writer.writerow(["SMILES", "Method", "True RT", "Predicted RT", "STD"])
