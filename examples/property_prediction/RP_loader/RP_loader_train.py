@@ -43,7 +43,7 @@ print(f"Loading {mode} {data_type} data from: {DATA_PATH}")
 
 
 companies = ['', 'Waters', 'Thermo', 'Agilent', 'Restek', 'Merck', 'Phenomenex', 'HILICON','GL','Advanced', 'Other']
-USPs = ['', 'L1', 'L10', 'L109', 'L11', 'L43', 'L68', 'L3','L114', 'L112', 'L122', 'L7', 'L10', 'Other']
+USPs = ['', 'L1', 'L10', 'L109', 'L11', 'L43', 'L68', 'L3','L114', 'L112', 'L122', 'L7', 'Other']
 solvs = ['h2o','meoh', 'acn', 'iproh', 'Other']
 HPLCs = ['RP', 'HILIC', 'PFP', 'Other']
 
@@ -146,8 +146,8 @@ def featurize_column(column_params, index):
     tanaka_params = [kPB, a_CH2, a_TO, a_CP, a_BP, a_BP1, part_size]
 
     add_A_vals = np.ceil(list(map(float, add_A[::2])))
-    add_A_vals = np.ceil([float(val) for val in add_A[::2]])
-    add_B_vals = np.ceil([float(val) for val in add_B[::2]])
+    # add_A_vals = np.ceil([float(val) for val in add_A[::2]])
+    # add_B_vals = np.ceil([float(val) for val in add_B[::2]])
     
     add_A_vals = np.ceil(list(map(float, add_A[::2]))) 
     add_B_vals = np.ceil(list(map(float, add_B[::2])))
